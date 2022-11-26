@@ -1,8 +1,9 @@
 DROP TABLE IF EXISTS students CASCADE;
 CREATE TABLE students(
-    id SERIAL PRIMARY KEY NOT NULL,
-    first_name VARCHAR(255) NOT NULL,
-    last_name VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL,
-    unique_code VARCHAR(255) NOT NULL
+    student_id SERIAL PRIMARY KEY NOT NULL,
+    first_name TEXT NOT NULL,
+    last_name TEXT NOT NULL,
+    email TEXT NOT NULL,
+    unique_code TEXT NOT NULL,
+    credits INT NOT NULL
 );
