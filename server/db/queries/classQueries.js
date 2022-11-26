@@ -2,7 +2,7 @@ const db = require('../index');
 
 const getClassesById = async (class_id) => {
   const queryDef = {
-    text: 'SELECT * FROM classes WHERE class_id = $1',
+    text: 'SELECT * FROM classes WHERE class_id = $1;',
     values: [class_id]
   };
 
@@ -12,7 +12,7 @@ const getClassesById = async (class_id) => {
 
 const getClassesByClassType = async (class_type_id) => {
   const queryDef = {
-    text: 'SELECT * FROM classes WHERE class_type_id = $1',
+    text: 'SELECT * FROM classes WHERE class_type_id = $1;',
     values: [class_type_id]
   };
 
