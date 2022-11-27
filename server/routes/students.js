@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { getStudents, getStudentById } = require('../db/queries/studentQueries');
+const { getStudents, getStudentById, updateStudent } = require('../db/queries/studentQueries');
 
 /* GET home page. */
 router.get('/', async (req, res) => {
@@ -23,7 +23,7 @@ router.get('/:id', async (req, res) => {
 
 router.put('/:id', async (req, res) => {
   try {
-    const student = await updateStudent(Number(req.params.id), req.body);
+    const student = await updateStudent(Number(req.params.id), req.query);
     res.json(student);
   } catch(e) {
     res.status(500).json({ error: e.message });
