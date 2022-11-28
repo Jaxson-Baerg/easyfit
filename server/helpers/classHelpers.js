@@ -1,4 +1,5 @@
 const { getClassesById } = require('../db/queries/classQueries');
+const { getStudentById } = require('../db/queries/studentQueries');
 
 const getClassList = async (classIds) => {
   classes = [];
@@ -9,4 +10,13 @@ const getClassList = async (classIds) => {
   return classes;
 };
 
-module.exports = { getClassList }
+const getStudentList = async (studentIds) => {
+  students = [];
+  for (studentId of studentIds) {
+    const studentList = await getStudentById(Number(studentId.student_id));
+    students.push(studentList[0]);
+  }
+  return students;
+};
+
+module.exports = { getClassList, getStudentList };
