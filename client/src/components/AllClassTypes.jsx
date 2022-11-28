@@ -1,6 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import '../styles/scss/AllClassTypes.scss'
 
 export default function AllClassTypes(props) {
   const [classTypeList, setClassTypeList] = useState([]);
