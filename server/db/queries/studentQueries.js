@@ -1,13 +1,23 @@
 const db = require('../index');
 
 const getStudents = async () => {
-  const data = await db.query('SELECT * FROM students;');
+  const data = await db.query('SELECT first_name, last_name, email, credits FROM students;');
   return data.rows;
 };
 
 const getStudentById = async (id) => {
   const queryDef = {
-    text: 'SELECT * FROM students WHERE student_id = $1;',
+    text: 'SELECT first_name, last_name, email, credits FROM students WHERE student_id = $1;',
+    values: [id]
+  };
+
+  const data = await db.query(queryDef);
+  return data.rows;
+};
+
+const getStudentCodeById = async (id) => {
+  const queryDef = {
+    text: 'SELECT unique_code FROM students WHERE student_id = $1;',
     values: [id]
   };
 
@@ -31,5 +41,6 @@ const updateStudent = async (student_id, studentInfo) => {
 module.exports = {
   getStudents,
   getStudentById,
+  getStudentCodeById,
   updateStudent
 };
