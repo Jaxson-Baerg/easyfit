@@ -1,8 +1,19 @@
 const express = require('express');
 const router = express.Router();
-const { getClassesById, getClassesByClassType } = require('../db/queries/classQueries');
+const { getClasses, getClassesById, getClassesByClassType } = require('../db/queries/classQueries');
 const { getAllStudentsPerClass, registerStudent, cancelRegistration } = require('../db/queries/classStudentsQueries');
-const { getStudentList } = require('../helpers/classHelpers');
+const { getStudentList, getClassTypeList } = require('../helpers/classHelpers');
+
+// Get a list of all classes
+router.get('/', async (req, res) => {
+  try {
+    const classesInc = await getClasses();
+    const classesCom = await getClassTypeList(classesInc);
+    res.json(classesCom);
+  } catch(e) {
+    res.status(500).json({ error: e.message });
+  }
+});
 
 // Get a single class by its id
 router.get('/:id', async (req, res) => {
