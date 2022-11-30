@@ -19,7 +19,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "scss:build": "sass scss:src/styles",
-    "scss:watch": "sass --watch scss:src/styles"
+    "scss:watch": "sass --watch src/styles/scss/:src/styles/css"
   },
   "proxy": "http://localhost:3001/",
   "eslintConfig": {

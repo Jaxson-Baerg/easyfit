@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { getClassTypes, getClassTypeById } = require('../db/queries/classTypeQueries');
 
-/* GET home page. */
+// Get all class types
 router.get('/', async (req, res) => {
   try {
     const classTypes = await getClassTypes();
@@ -12,6 +12,7 @@ router.get('/', async (req, res) => {
   }
 });
 
+// Get a class type by its id
 router.get('/:id', async (req, res) => {
   try {
     const classType = await getClassTypeById(Number(req.params.id));

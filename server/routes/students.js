@@ -1,8 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const { getStudents, getStudentById, updateStudent } = require('../db/queries/studentQueries');
+const { getAllClassesPerStudent } = require('../db/queries/classStudentsQueries');
+const { getClassList, getClassTypeList } = require('../helpers/classHelpers');
 
-/* GET home page. */
+// Get a list of all students in database
 router.get('/', async (req, res) => {
   try {
     const students = await getStudents();
@@ -12,6 +14,7 @@ router.get('/', async (req, res) => {
   }
 });
 
+// Get a student by its id
 router.get('/:id', async (req, res) => {
   try {
     const student = await getStudentById(Number(req.params.id));
@@ -21,6 +24,7 @@ router.get('/:id', async (req, res) => {
   }
 });
 
+// Update a student's information
 router.put('/:id', async (req, res) => {
   try {
     const student = await updateStudent(Number(req.params.id), req.query);
@@ -28,6 +32,18 @@ router.put('/:id', async (req, res) => {
   } catch(e) {
     res.status(500).json({ error: e.message });
   }
-})
+});
+
+// Get all classes that a student is registered for
+router.get('/:id/classes', async (req, res) => {
+  try {
+    const classIds = await getAllClassesPerStudent(Number(req.params.id)); // Get all class ids
+    const classesInc = await getClassList(classIds); // Get all class objects
+    const classesCom = await getClassTypeList(classesInc); // Append all class type data onto class objects
+    res.json(classesCom);
+  } catch(e) {
+    res.status(500).json({ error: e.message });
+  }
+});
 
 module.exports = router;
