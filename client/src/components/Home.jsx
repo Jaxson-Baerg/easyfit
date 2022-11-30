@@ -1,9 +1,9 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import '../styles/scss/AllClassTypes.scss'
 
-export default function AllClassTypes(props) {
+import '../styles/css/Home.css';
+
+export default function Home(props) {
   const [classTypeList, setClassTypeList] = useState([]);
 
   // Axios call to server for list of class types
@@ -22,8 +22,12 @@ export default function AllClassTypes(props) {
   ))
 
   return (
+    <div>
+      <h1>Home</h1>
+      <h3>Image here</h3>
       <ul>
         {classTypes}
       </ul>
+    </div>
   );
 };
