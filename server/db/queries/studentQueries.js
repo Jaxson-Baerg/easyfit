@@ -5,6 +5,16 @@ const getStudents = async () => {
   return data.rows;
 };
 
+const getStudentByEmail = async (email) => {
+  const queryDef = {
+    text: 'SELECT student_id, first_name, last_name, email, credits FROM students WHERE email = $1;',
+    values: [email]
+  };
+
+  const data = await db.query(queryDef);
+  return data.rows;
+};
+
 const getStudentById = async (id) => {
   const queryDef = {
     text: 'SELECT student_id, first_name, last_name, email, credits FROM students WHERE student_id = $1;',
@@ -40,6 +50,7 @@ const updateStudent = async (student_id, studentInfo) => {
 
 module.exports = {
   getStudents,
+  getStudentByEmail,
   getStudentById,
   getStudentCodeById,
   updateStudent
