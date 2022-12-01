@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
+import { Link, Routes, Route, useParams } from "react-router-dom";
 import axios from "axios";
-
+import AdminClass from './AdminClass';
 import ClassListButton from './ClassListButton';
 
 export default function Admin(props) {
   const [classLists, setClassLists] = useState([]);
   const [studentsIsShown, setStudentsIsShown] = useState(false);
-
+  const [studentList, setStudentList] = useState([])
+  const { id } = useParams();
   //Axios call for the class
   useEffect(() => {
     axios.get('/classes')
@@ -25,16 +27,23 @@ export default function Admin(props) {
       <h2>{element.name}</h2>
       <h3>Start date: {formatDate(element.start_datetime)}</h3>
       <h3>End date: {formatDate(element.end_datetime)}</h3>
-      <ClassListButton class_id={element.class_id} studentsIsShown={studentsIsShown} setStudentsIsShown={setStudentsIsShown}>View Student List</ClassListButton>
+      <Link to={`/adminclass/${element.class_id}`}>
+      <ClassListButton>View Student List</ClassListButton>
+      </Link>
     </li>
   );
 
   return (
     <div>
+    <div>
       <h1>ADMIN</h1>
       <ul className='classList'>
         {classList}
       </ul>  
+    </div>
+    <Routes>
+      <Route path="/adminclass" elements={<AdminClass/>}/>
+    </Routes>
     </div>
   );
 }

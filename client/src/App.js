@@ -9,6 +9,8 @@ import Account from './components/Account';
 import Login from './components/Login';
 import Purchase from './components/Purchase';
 import Register from './components/Register';
+import AdminClass from './components/AdminClass';
+import AdminStudent from './components/AdminStudent';
 
 const App = () => {
   return (
@@ -18,10 +20,12 @@ const App = () => {
         <Routes>
           <Route path='/' element={<Home/>}/>
           <Route path='/account' element={<Account/>}/>
-          <Route path='/admin' element={<Admin/>}/>
+          <Route path='/admin/*' element={<Admin/>}/>
           <Route path='/login' element={<Login/>}/>
           <Route path='/purchase' element={<Purchase/>}/>
           <Route path='/register' element={<Register/>}/>
+          <Route path='/adminclass/:id' element={<AdminClass/>}/>
+          <Route path='/adminstudent/:id' element={<AdminStudent/>}/>
         </Routes>
       </Router>
     </>

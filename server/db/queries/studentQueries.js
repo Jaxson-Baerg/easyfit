@@ -7,7 +7,7 @@ const getStudents = async () => {
 
 const getStudentById = async (id) => {
   const queryDef = {
-    text: 'SELECT first_name, last_name, email, credits FROM students WHERE student_id = $1;',
+    text: 'SELECT student_id, first_name, last_name, email, credits FROM students WHERE student_id = $1;',
     values: [id]
   };
 
