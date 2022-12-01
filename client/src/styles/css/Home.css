@@ -1,3 +1,45 @@
+.home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-self: center;
+  background: linear-gradient(180deg, rgb(249, 204, 204) 0%, #ffffff 100%);
+  width: 90%;
+  padding-top: 5em;
+  padding-bottom: 5em;
+}
 
+#root {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: rgb(249, 204, 204);
+}
+
+li {
+  padding: 1em;
+  border-bottom: 0.1em solid #000000;
+}
+li div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: rgb(246, 122, 108);
+  border: 0.1em solid rgb(246, 122, 108);
+  border-radius: 2em;
+  padding: 1em;
+}
+li button {
+  margin: 1em;
+  cursor: pointer;
+  background-color: #4ad092;
+  border: 0.1em solid #4ad092;
+  border-radius: 1.2em;
+  box-shadow: 3px 2px 2px #1e8a57;
+}
+li button:hover {
+  background-color: #1e8a57;
+  border: 0.1em solid #1e8a57;
+}
 
 /*# sourceMappingURL=Home.css.map */
