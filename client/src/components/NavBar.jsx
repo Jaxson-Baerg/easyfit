@@ -1,17 +1,20 @@
-import React, { useState } from "react";
+import React, { useRef } from "react";
 import { Link } from "react-router-dom";
-import '../styles/scss/NavBar.scss';
+import '../styles/css/NavBar.css';
 
 import NavList from "./NavList";
 
 export default function NavBar(props) {
-   const [open, setOpen] = useState(false);
+   const navOptions = useRef(null);
 
    return (
-      <nav>
-        <h1><Link to="/"> EasyFit </Link></h1>
-        <button onClick={() => setOpen(!open)}>Three Lined Button Symbol</button>
-        {open && <NavList/>}
+      <nav className="wave">
+        <div>
+          <h1><Link to="/" style={{all: "unset"}}> EasyFit </Link></h1>
+          <img src={require('../images/easyfit-logo.png')} alt='EasyFit' width={"50"} height={"50"}/>
+        </div>
+        <NavList navOptions={navOptions}/>
+        <button onClick={() => navOptions.current.classList.toggle('show')}><i className="fa-solid fa-bars fa-2x"></i></button>
       </nav>
    );
 };

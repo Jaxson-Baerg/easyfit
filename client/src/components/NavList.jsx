@@ -1,14 +1,14 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Link } from "react-router-dom";
 
 import '../styles/scss/NavList.scss'
 
 export default function NavList(props) {
    return (
-      <ul>
-         <li><Link to="/"> Home </Link></li>
-         <li><Link to="/account"> My Account </Link></li>
-         <li><Link to="/purchase"> Purchase Credits </Link></li>
+      <ul id="navOptions" ref={props.navOptions}>
+         <li><Link to="/" style={{all: "unset"}}> Home </Link></li>
+         <li><Link to="/account" style={{all: "unset"}}> My Account </Link></li>
+         <li><Link to="/purchase" style={{all: "unset"}}> Purchase Credits </Link></li>
       </ul>
    );
 };

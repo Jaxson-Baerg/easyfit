@@ -1,7 +1,12 @@
-import React from 'react'
+import React from 'react';
+
+import '../styles/css/Purchase.css';
 
 export default function Purchase() {
   return (
-    <div>Purchase</div>
+    <div className='purchase'>
+      <h2>Purchase Credits</h2>
+
+    </div>
   )
 }

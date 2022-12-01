@@ -1,7 +1,12 @@
-import React from 'react'
+import React from 'react';
+
+import '../styles/css/Account.css';
 
 export default function Account() {
   return (
-    <div>Account</div>
+    <div className='account'>
+      <h2>Account</h2>
+      
+    </div>
   )
 }
