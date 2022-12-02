@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React from "react";
 
 export default function ClassListButton(props) {
   // const [students, setStudents] = useState(null);
@@ -12,6 +11,6 @@ export default function ClassListButton(props) {
   };
 
   return (
-    <button onClick={event => clickHandler()}>{props.children}</button>
+    <button onClick={() => clickHandler()}>{props.children}</button>
   )
 }
