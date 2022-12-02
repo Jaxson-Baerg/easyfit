@@ -25,7 +25,7 @@ const getStudentList = async (studentIds) => {
 // Append class type data with class data
 const getClassTypeList = async (classList) => {
   const classes = [];
-  for (c of classList) {
+  for (let c of classList) {
     const classType = await getClassTypeById(c.class_type_id);
 
     c = {
