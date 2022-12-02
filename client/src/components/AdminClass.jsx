@@ -10,28 +10,26 @@ export default function AdminClass(props) {
 
   useEffect(() => {
     axios.get(`/classes/${props.classId}/students`)
-    .then(result => setStudents(result.data))
+    .then(result => setStudents(result.data.map((element, index) =>
+      <li key={index}>
+        <h2>{element.first_name} {element.last_name}</h2>
+        <Link to={`/admin/student`}>
+          <button onClick={() => props.setStudentId(element.student_id)}>View</button>
+        </Link>
+        <Link to={'/register'}>
+          <button onClick={() => props.setStudentId(element.student_id)}>Cancel Registration</button>
+        </Link>
+      </li>
+    )))
     .catch(e => console.log(e));
-  }, [props.classId]); 
-  
-  const student = students.map((element, index) =>
-  <li key={index}>
-    <h2>{element.first_name} {element.last_name}</h2>
-    <Link to={`/admin/student`}>
-      <button onClick={() => props.setStudentId(element.student_id)}>View</button>
-    </Link>
-    <Link to={'/register'}>
-      <button onClick={() => props.setStudentId(element.student_id)}>Cancel Registration</button>
-    </Link>
-  </li>
-  );
+  }, [props]); 
   
   return (
     <div className="adminclass">
       <div>
         <h1>Students for class id {props.classId}:</h1>
         <ul className='students'>
-          {student}
+          {students}
         </ul>
       </div>
     </div>  
