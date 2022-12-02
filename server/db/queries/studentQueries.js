@@ -1,5 +1,9 @@
 const db = require('../index');
 
+const generateUniqueCode = () => {
+  return Math.random().toString(36).slice(2, 8);
+};
+
 const getStudents = async () => {
   const data = await db.query('SELECT first_name, last_name, email, credits FROM students;');
   return data.rows;
@@ -48,10 +52,22 @@ const updateStudent = async (student_id, studentInfo) => {
   return data.rows;
 };
 
+const addStudent = async (first_name, last_name, email) => {
+  const unique_code = generateUniqueCode()
+  const queryDef = {
+    text: `INSERT INTO students (first_name, last_name, email, unique_code, credits) VALUES ($1, $2, $3, $4, $5) RETURNING *;`,
+    values: [first_name, last_name, email, unique_code, 0]
+  };
+
+  const data = await db.query(queryDef);
+  return data.rows[0];
+};
+
 module.exports = {
   getStudents,
   getStudentByEmail,
   getStudentById,
   getStudentCodeById,
-  updateStudent
+  updateStudent,
+  addStudent
 };

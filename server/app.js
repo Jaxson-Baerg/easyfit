@@ -22,6 +22,11 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(cookieSession({
+  name: 'EasyFit',
+  keys:['SecretKey','anotherSecretKey'],
+  maxAge: 24* 60 * 60 * 1000
+}));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/students', studentsRouter);
