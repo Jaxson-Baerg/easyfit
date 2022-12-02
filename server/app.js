@@ -2,12 +2,15 @@ const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
+const cookieSession = require("cookie-session");
 const logger = require('morgan');
 
 const studentsRouter = require('./routes/students');
 const classesRouter = require('./routes/classes');
 const classTypesRouter = require('./routes/class_types');
 const adminRouter = require('./routes/admin');
+const loginRouter = require('./routes/login');
+const registerRouter = require('./routes/register');
 
 const app = express();
 
@@ -25,6 +28,8 @@ app.use('/students', studentsRouter);
 app.use('/classes', classesRouter);
 app.use('/classTypes', classTypesRouter);
 app.use('/admin', adminRouter);
+app.use('/login', loginRouter);
+app.use('/register', registerRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

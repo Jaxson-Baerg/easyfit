@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { getStudents, getStudentById, updateStudent } = require('../db/queries/studentQueries');
+const { getStudents, getStudentByEmail, getStudentById, updateStudent } = require('../db/queries/studentQueries');
 const { getAllClassesPerStudent } = require('../db/queries/classStudentsQueries');
 const { getClassList, getClassTypeList } = require('../helpers/classHelpers');
 
@@ -14,7 +14,22 @@ router.get('/', async (req, res) => {
   }
 });
 
-// Get a student by its id
+router.get('/logout', (req, res) => {
+  req.session = null;
+  res.redirect('../../');
+});
+
+// Get a student by their email
+router.get('/:email', async (req, res) => {
+  try {
+    const student = await getStudentByEmail(req.params.email);
+    res.json(student);
+  } catch(e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+// Get a student by their id
 router.get('/:id', async (req, res) => {
   try {
     const student = await getStudentById(Number(req.params.id));
