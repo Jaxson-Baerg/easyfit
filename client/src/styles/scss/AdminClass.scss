@@ -1,4 +1,4 @@
-.admin {
+.adminclass {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -7,9 +7,10 @@
   width: 90%;
   padding-top: 5em;
   padding-bottom: 5em;
-}
-.admin ul {
-  width: 80%;
+
+  div {
+    width: 80%;
+  }
 }
 
 #root {
@@ -18,5 +19,3 @@
   justify-content: center;
   background-color: rgb(249, 204, 204);
 }
-
-/*# sourceMappingURL=Admin.css.map */
