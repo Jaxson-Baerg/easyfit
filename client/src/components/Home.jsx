@@ -10,7 +10,7 @@ export default function Home(props) {
   useEffect(() => {
     axios.get('/classTypes')
       .then(result => setClassTypeList(result.data))
-      .catch(e => console.log(e));
+      .catch(e => {});
   }, []);
 
   const classTypes = classTypeList.map((element, index) => (
