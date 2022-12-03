@@ -12,7 +12,11 @@ export default function Admin(props) {
     const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     const formatDate = (dateStr) => { // "2022-12-15T14:30:00.000Z"
       const tempDate = dateStr.split(/[-T.]+/); // tempDate = ["2022", "12", "15", "14:30:00", "000Z"]
-      return `${months[tempDate[1] - 1]} ${tempDate[2]}, ${tempDate[0]} - ${tempDate[3]}`; // "December 15, 2022 - 14:30:00"
+      return `${months[tempDate[1] - 1]} ${tempDate[2]}, ${tempDate[0]}`; // "December 15, 2022 - 14:30:00"
+    };
+    const formatTime = (dateStr) => {
+      const tempDate = dateStr.split(/[-T.]+/);
+      return `${tempDate[3].split(':').slice(0, 2).join(':')}${Number(tempDate[3].split(':')[0]) > 11 || Number(tempDate[3].split(':')[0]) === 24 ? "pm" : "am"}`;
     };
 
     axios.get('/classes')
@@ -20,8 +24,9 @@ export default function Admin(props) {
       setClassLists(result.data.map((element, index) => (
         <li key={index}>
           <h2>{element.name} -- {element.spots_remaining} spots left</h2>
-          <h3>Start date: {formatDate(element.start_datetime)}</h3>
-          <h3>End date: {formatDate(element.end_datetime)}</h3>
+          <h3>Day: {formatDate(element.start_datetime)}</h3>
+          <h3>Time: {formatTime(element.start_datetime)} - {formatTime(element.end_datetime)}</h3>
+          <h4>{element.description}</h4>
           <Link to={`/admin/class/`}>
             <button onClick={() => props.setClassId(element.class_id)}>View Student List</button>
           </Link>
