@@ -10,7 +10,7 @@ router.get('/', async (req, res) => {
     const classesInc = await getClasses();
     const classesCom = await getClassTypeList(classesInc);
     const classes = await getSpotsRemaining(classesCom);
-    res.json(classes);
+    res.json(classes.sort(c => -c.start_datetime));
   } catch(e) {
     res.status(500).json({ error: e.message });
   }
@@ -33,7 +33,7 @@ router.get('/type/:id', async (req, res) => {
     const classes = await getClassesByClassType(Number(req.params.id));
     const classesInc = await getClassTypeList(classes);
     const classesCom = await getSpotsRemaining(classesInc);
-    res.json(classesCom);
+    res.json(classesCom.sort(c => -c.start_datetime));
   } catch(e) {
     res.status(500).json({ error: e.message });
   }

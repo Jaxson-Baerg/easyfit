@@ -38,7 +38,7 @@ export default function Account() {
       .catch(e => {});
     axios.get(`/students/${cookies.get('loggedIn')}/classes`)
       .then(result => setClasses(result.data.map((element, index) => (
-        <li key={index}>
+        <li key={index} className="bubble">
           <h2>{element.name}</h2>
           <h3>Day: {formatDate(element.start_datetime)}</h3>
           <h3>Time: {formatTime(element.start_datetime)} - {formatTime(element.end_datetime)}</h3>
@@ -51,12 +51,12 @@ export default function Account() {
 
   return (
     <div className='account'>
-      <h2>Account</h2>
-      <h3>Hello, {student.first_name}!</h3>
+      <h1>Account</h1>
+      <h2>Hello, {student.first_name}!</h2>
+      <h3>Credits: {student.credits}</h3>
       {classes.length > 0 ? <ul>
         {classes}
       </ul> : <span>You aren't registered for any classes yet!</span>}
-      <h4>Credits: {student.credits}</h4>
     </div>
   )
 }
