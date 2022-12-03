@@ -14,7 +14,7 @@ export default function Account() {
     const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     const formatDate = (dateStr) => { // "2022-12-15T14:30:00.000Z"
       const tempDate = dateStr.split(/[-T.]+/); // tempDate = ["2022", "12", "15", "14:30:00", "000Z"]
-      return `${months[tempDate[1] - 1]} ${tempDate[2]}, ${tempDate[0]}`; // "December 15, 2022 - 14:30:00"
+      return `${months[tempDate[1] - 1]} ${tempDate[2]}, ${tempDate[0]}`; // "December 15, 2022"
     };
     const formatTime = (dateStr) => {
       const tempDate = dateStr.split(/[-T.]+/);
