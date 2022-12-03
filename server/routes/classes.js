@@ -30,7 +30,9 @@ router.get('/:id', async (req, res) => {
 router.get('/type/:id', async (req, res) => {
   try {
     const classes = await getClassesByClassType(Number(req.params.id));
-    res.json(classes);
+    const classesInc = await getClassTypeList(classes);
+    const classesCom = await getSpotsRemaining(classesInc);
+    res.json(classesCom);
   } catch(e) {
     res.status(500).json({ error: e.message });
   }
