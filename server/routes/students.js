@@ -105,7 +105,7 @@ router.get('/:id/classes', async (req, res) => {
     const classIds = await getAllClassesPerStudent(Number(req.params.id)); // Get all class ids
     const classesInc = await getClassList(classIds); // Get all class objects
     const classesCom = await getClassTypeList(classesInc); // Append all class type data onto class objects
-    res.json(classesCom);
+    res.json(classesCom.sort(c => -c.start_datetime));
   } catch(e) {
     res.status(500).json({ error: e.message });
   }
