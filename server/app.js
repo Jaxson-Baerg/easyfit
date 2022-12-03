@@ -5,6 +5,8 @@ const cookieParser = require('cookie-parser');
 const cookieSession = require("cookie-session");
 const logger = require('morgan');
 
+const cors = require('cors');
+
 const studentsRouter = require('./routes/students');
 const classesRouter = require('./routes/classes');
 const classTypesRouter = require('./routes/class_types');
@@ -28,6 +30,8 @@ app.use(cookieSession({
   maxAge: 24* 60 * 60 * 1000
 }));
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(cors({credentials: true, origin: 'http://localhost:3000'}))
 
 app.use('/students', studentsRouter);
 app.use('/classes', classesRouter);

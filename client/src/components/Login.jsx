@@ -31,7 +31,7 @@ export default function Login(props) {
           unique_code
         }})
           .then(() => {
-            axios.get(`/students/code/${result.data[0].student_id}`)
+            axios.get(`/students/code/${result.data[0].student_id}`, {withCredentials: true})
               .then(result3 => {
                 setCode(result3.data[0].unique_code);
               })
