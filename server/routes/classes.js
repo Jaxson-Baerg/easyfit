@@ -19,8 +19,9 @@ router.get('/', async (req, res) => {
 // Get a single class by its id
 router.get('/:id', async (req, res) => {
   try {
-    const classes = await getClassesById(Number(req.params.id));
-    res.json(classes);
+    const classesInc = await getClassesById(Number(req.params.id));
+    const classesCom = await getClassTypeList(classesInc);
+    res.json(classesCom);
   } catch(e) {
     res.status(500).json({ error: e.message });
   }
