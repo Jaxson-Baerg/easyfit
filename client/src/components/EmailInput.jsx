@@ -16,7 +16,7 @@ export default function EmailInput(props) {
           <input name="email" placeholder="Email address" type="email" value={email} onChange={event => setEmail(event.target.value)}/>
           </div>
           <button type='submit'>Submit</button>
-          <p>Don't have an account? <a href="/register">Register</a> </p>
+          <p>Don't have an account? <a href="/register-account">Register</a> </p>
         </form>
       </article>
     </div>
