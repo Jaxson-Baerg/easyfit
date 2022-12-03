@@ -8,6 +8,12 @@
   padding-top: 5em;
   padding-bottom: 5em;
 }
+.account ul {
+  width: 80%;
+}
+.account button {
+  padding: 1em;
+}
 
 #root {
   display: flex;
