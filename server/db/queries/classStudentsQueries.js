@@ -32,7 +32,7 @@ const registerStudent = async (class_id, student_id) => {
 
 const cancelRegistration = async (class_id, student_id) => {
   const queryDef = {
-    text: 'DELETE FROM class_students WHERE student_id = $1 AND class_id = $2 RETURNING *;',
+    text: 'DELETE FROM class_students WHERE class_id = $1 AND student_id = $2 RETURNING *;',
     values: [class_id, student_id]
   };
 

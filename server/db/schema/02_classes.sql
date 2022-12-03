@@ -4,5 +4,6 @@ CREATE TABLE classes(
     class_type_id INT REFERENCES class_types(class_type_id) ON DELETE CASCADE,
     start_datetime TIMESTAMPTZ NOT NULL,
     end_datetime TIMESTAMPTZ NOT NULL,
-    credit_cost INT NOT NULL
+    credit_cost INT NOT NULL,
+    max_students INT NOT NULL
 );

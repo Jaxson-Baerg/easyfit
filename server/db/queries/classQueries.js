@@ -7,7 +7,7 @@ const getClasses = async () => {
 
 const getClassesById = async (class_id) => {
   const queryDef = {
-    text: 'SELECT * FROM classes WHERE class_id = $1;',
+    text: 'SELECT *, start_datetime - NOW() AS difference FROM classes WHERE class_id = $1;',
     values: [class_id]
   };
 
