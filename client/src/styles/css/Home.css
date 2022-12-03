@@ -20,17 +20,23 @@ li {
   padding: 1em;
   border-bottom: 0.1em solid #000000;
 }
-li div {
+li .bubble {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
   background-color: rgb(246, 122, 108);
   border: 0.1em solid rgb(246, 122, 108);
   border-radius: 2em;
   padding: 1em;
 }
+li .bubble div {
+  padding-right: 1em;
+}
+li .bubble span {
+  padding: 1em;
+}
 li button {
   margin: 1em;
+  padding: 1em;
   cursor: pointer;
   background-color: #4ad092;
   border: 0.1em solid #4ad092;

@@ -70,6 +70,11 @@ nav {
     box-shadow: 3px 2px 2px #1e8a57;
   }
 
+  .loginButton:hover, .logoutButton:hover {
+    background-color:#1e8a57;
+    border:0.1em solid #1e8a57;
+  }
+
   i {
     transition: font-size .1s ease;
   }

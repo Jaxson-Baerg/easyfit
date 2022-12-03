@@ -63,6 +63,10 @@ nav .loginButton, nav .logoutButton {
   border-radius: 1.2em;
   box-shadow: 3px 2px 2px #1e8a57;
 }
+nav .loginButton:hover, nav .logoutButton:hover {
+  background-color: #1e8a57;
+  border: 0.1em solid #1e8a57;
+}
 nav i {
   transition: font-size 0.1s ease;
 }
