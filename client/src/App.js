@@ -37,7 +37,7 @@ const App = () => {
           <Route path='/admin/*' element={admin ? <Admin/> : <AdminLogin admin={admin} setAdmin={setAdmin}/>}/>
           <Route path='/login/*' element={<Login setCookieValue={setCookieValue}/>}/>
           <Route path='/purchase' element={<Purchase/>}/>
-          <Route path='/register-account' element={<RegisterAccount/>}/>
+          <Route path='/register-account' element={<RegisterAccount setCookieValue={setCookieValue}/>}/>
         </Routes>
       </Router>
     </>
