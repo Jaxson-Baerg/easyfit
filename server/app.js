@@ -4,6 +4,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const cookieSession = require("cookie-session");
 const logger = require('morgan');
+const favicon = require('serve-favicon');
 
 const studentsRouter = require('./routes/students');
 const classesRouter = require('./routes/classes');
@@ -35,6 +36,7 @@ app.use('/classTypes', classTypesRouter);
 app.use('/admin', adminRouter);
 app.use('/login', loginRouter);
 app.use('/register', registerRouter);
+app.use(favicon(__dirname + '/public/images/favicon.ico'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
