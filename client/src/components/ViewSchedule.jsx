@@ -55,19 +55,27 @@ export default function ViewSchedule(props) {
       }
     };
 
-    axios.get(`/classes/type/${props.classTypeId}`)
-    .then(result => {
-      setClassLists(result.data.map((element, index) => (
-        <li key={index}>
-          <h2>{element.name} -- {element.spots_remaining} spots left</h2>
-          <h3>Day: {formatDate(element.start_datetime)}</h3>
-          <h3>Time: {formatTime(element.start_datetime)} - {formatTime(element.end_datetime)}</h3>
-          <h4>{element.description}</h4>
-          <button disabled={false} onClick={() => handleRegister(element.class_id, element.credit_cost)}>Register</button>
-          <h3 className="credits">Credits to Register: {element.credit_cost}</h3>
-        </li>)));
-    })
-    .catch(e => console.log(e));
+    const getClassList = (idArr) => {
+      axios.get(`/classes/type/${props.classTypeId}`)
+        .then(result => setClassLists(result.data.map((element, index) => (
+          <li key={index}>
+            <h2>{element.name} -- {idArr.includes(element.class_id) ? "Already registered!" : `${element.spots_remaining} spots left!`}</h2>
+            <h3>Day: {formatDate(element.start_datetime)}</h3>
+            <h3>Time: {formatTime(element.start_datetime)} - {formatTime(element.end_datetime)}</h3>
+            <h4>{element.description}</h4>
+            <button disabled={idArr.includes(element.class_id)} onClick={() => handleRegister(element.class_id, element.credit_cost)}>Register</button>
+            <h3 className="credits">Credits to Register: {element.credit_cost}</h3>
+          </li>))))
+        .catch(e => console.log(e));
+    };
+
+    if (props.cookies.get('loggedIn')) {
+      axios.get(`/students/${props.cookies.get('loggedIn')}/classes/id`)
+        .then(result => getClassList(result.data.map(element => element.class_id)))
+        .catch(e => {});
+    } else {
+      getClassList([]);
+    }
   }, [props, navigate]);
 
   return (

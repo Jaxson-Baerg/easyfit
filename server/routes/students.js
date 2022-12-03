@@ -89,6 +89,16 @@ router.put('/:id', async (req, res) => {
   }
 });
 
+// Get all class ids that a student is registered for
+router.get('/:id/classes/id', async (req, res) => {
+  try {
+    const classIds = await getAllClassesPerStudent(Number(req.params.id)); // Get all class ids
+    res.json(classIds);
+  } catch(e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
 // Get all classes that a student is registered for
 router.get('/:id/classes', async (req, res) => {
   try {
