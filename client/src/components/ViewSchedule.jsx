@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 import '../styles/css/ViewSchedule.css';
 
 export default function ViewSchedule(props) {
   const [classLists, setClassLists] = useState([]);
+  const navigate = useNavigate();
 
   //Axios call for the class
   useEffect(() => {
@@ -18,6 +20,41 @@ export default function ViewSchedule(props) {
       return `${tempDate[3].split(':').slice(0, 2).join(':')}${Number(tempDate[3].split(':')[0]) > 11 || Number(tempDate[3].split(':')[0]) === 24 ? "pm" : "am"}`;
     };
 
+    const handleRegister = (class_id, credit_cost) => {
+      const studentId = props.cookies.get('loggedIn');
+      if (studentId) {
+        if (window.confirm(`Are you sure you want to spend ${credit_cost} credit(s) to register for this class?`)) {
+          // Check if student has enough credits to register
+          axios.get(`/students/${studentId}`)
+            .then(result => {
+              if (result.data[0].credits >= credit_cost) {
+                // Axios request x2 (decrease credits & register student for class)
+                axios.put(`/students/${studentId}`, null, { params: {
+                  credits: result.data[0].credits - credit_cost
+                }})
+                  .then(() => {
+                    axios.post(`/classes/${class_id}/register`, null, { params: {
+                      student_id: studentId
+                    }})
+                      .then(() => {
+                        props.setClassId(class_id);
+                        navigate('/schedule/success');
+                      })
+                  })
+              } else {
+                navigate('/purchase');
+              }
+            })
+            .catch(e => {});
+          
+        }
+      } else {
+        if (window.confirm("You must login first to register for a class.")) {
+          navigate('/login');
+        }
+      }
+    };
+
     axios.get(`/classes/type/${props.classTypeId}`)
     .then(result => {
       setClassLists(result.data.map((element, index) => (
@@ -26,12 +63,12 @@ export default function ViewSchedule(props) {
           <h3>Day: {formatDate(element.start_datetime)}</h3>
           <h3>Time: {formatTime(element.start_datetime)} - {formatTime(element.end_datetime)}</h3>
           <h4>{element.description}</h4>
-          <button disabled={false} onClick={() => {}}>Register</button>
+          <button disabled={false} onClick={() => handleRegister(element.class_id, element.credit_cost)}>Register</button>
           <h3 className="credits">Credits to Register: {element.credit_cost}</h3>
         </li>)));
     })
     .catch(e => console.log(e));
-  }, [props]);
+  }, [props, navigate]);
 
   return (
     <div className="viewschedule">
