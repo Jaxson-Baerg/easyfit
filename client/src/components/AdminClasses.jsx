@@ -17,8 +17,9 @@ export default function Admin(props) {
 
     axios.get('/classes')
     .then(result => {
-      setClassLists(result.data.map((element, index) => (<li key={index}>
-          <h2>{element.name}</h2>
+      setClassLists(result.data.map((element, index) => (
+        <li key={index}>
+          <h2>{element.name} -- {element.spots_remaining} spots left</h2>
           <h3>Start date: {formatDate(element.start_datetime)}</h3>
           <h3>End date: {formatDate(element.end_datetime)}</h3>
           <Link to={`/admin/class/`}>

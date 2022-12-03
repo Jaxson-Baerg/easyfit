@@ -1,6 +1,7 @@
 const { getClassesById } = require('../db/queries/classQueries');
 const { getStudentById } = require('../db/queries/studentQueries');
 const { getClassTypeById } = require('../db/queries/classTypeQueries');
+const { getAllStudentsPerClass } = require('../db/queries/classStudentsQueries');
 
 // Get class objects from list of class ids
 const getClassList = async (classIds) => {
@@ -38,4 +39,17 @@ const getClassTypeList = async (classList) => {
   return classes;
 }
 
-module.exports = { getClassList, getStudentList, getClassTypeList };
+// Calculate spots remaining for each class
+const getSpotsRemaining = async (classList) => {
+  const classes = [];
+  for (let c of classList) {
+    const numStudents = await getAllStudentsPerClass(c.class_id);
+    classes.push({
+      ...c,
+      spots_remaining: c.max_students - numStudents.length
+    })
+  }
+  return classes;
+}
+
+module.exports = { getClassList, getStudentList, getClassTypeList, getSpotsRemaining };
