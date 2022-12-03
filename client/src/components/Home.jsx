@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 import '../styles/css/Home.css';
 
 export default function Home(props) {
   const [classTypeList, setClassTypeList] = useState([]);
+  const navigate = useNavigate();
 
   // Axios call to server for list of class types
   useEffect(() => {
@@ -17,7 +19,7 @@ export default function Home(props) {
     <li key={index}>
       <div>
         <h3>{element.name}</h3>
-        <button>Schedule</button>
+        <button onClick={() => {props.setClassTypeId(element.class_type_id); navigate('/schedule');}}>Schedule</button>
       </div>
       <span>{element.description}</span>
     </li>

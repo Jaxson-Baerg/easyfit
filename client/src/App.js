@@ -5,6 +5,7 @@ import Cookies from 'universal-cookie';
 
 import NavBar from './components/NavBar';
 import Home from './components/Home';
+import ViewSchedule from './components/ViewSchedule';
 import Admin from './components/Admin';
 import AdminLogin from './components/AdminLogin';
 import Account from './components/Account';
@@ -14,6 +15,7 @@ import RegisterAccount from './components/RegisterAccount';
 
 const App = () => {
   const [admin, setAdmin] = useState(false);
+  const [classTypeId, setClassTypeId] = useState(null);
   const cookies = new Cookies();
 
   const setCookieValue = (val) => {
@@ -29,7 +31,8 @@ const App = () => {
       <Router>
       <NavBar loggedInId={cookies.get('loggedIn')} logout={logout} />
         <Routes>
-          <Route path='/' element={<Home/>}/>
+          <Route path='/' element={<Home setClassTypeId={setClassTypeId}/>}/>
+          <Route path='/schedule' element={<ViewSchedule classTypeId={classTypeId}/>}/>
           <Route path='/account' element={cookies.get('loggedIn') ? <Account/> : <Navigate to='/login' replace={true}/>}/>
           <Route path='/admin/*' element={admin ? <Admin/> : <AdminLogin admin={admin} setAdmin={setAdmin}/>}/>
           <Route path='/login/*' element={<Login setCookieValue={setCookieValue}/>}/>
