@@ -20,7 +20,7 @@ router.get('/logout', (req, res) => {
 });
 
 // Get a student by their email
-router.get('/:email', async (req, res) => {
+router.get('/email/:email', async (req, res) => {
   try {
     const student = await getStudentByEmail(req.params.email);
     res.json(student);
