@@ -12,9 +12,11 @@ export default function NavBar(props) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get(`/students/${props.loggedInId}`)
-      .then(result => setStudentName(result.data[0].first_name))
-      .catch(e => {});
+    if (props.loggedInId) {
+      axios.get(`/students/${props.loggedInId}`)
+        .then(result => setStudentName(result.data[0].first_name))
+        .catch(e => {});
+    }
   }, [props.loggedInId]);
 
   return (
