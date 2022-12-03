@@ -15,6 +15,15 @@
   .credits {
     display: inline;
   }
+
+  .bubble {
+    margin: 1em;
+    width: 100%;
+    background-color: rgb(246, 122, 108);
+    border: 0.1em solid rgb(246, 122, 108);
+    border-radius: 2em;
+    padding: 1em;
+  }
 }
 
 #root {

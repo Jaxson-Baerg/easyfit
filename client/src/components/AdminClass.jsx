@@ -10,7 +10,7 @@ export default function AdminClass(props) {
   useEffect(() => {
     axios.get(`/classes/${props.classId}/students`)
     .then(result => setStudents(result.data.map((element, index) =>
-      <li key={index}>
+      <li key={index} className="bubble">
         <h2>{element.first_name} {element.last_name}</h2>
         <Link to={`/admin/student`}>
           <button onClick={() => props.setStudentId(element.student_id)}>View</button>

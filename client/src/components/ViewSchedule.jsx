@@ -58,7 +58,7 @@ export default function ViewSchedule(props) {
     const getClassList = (idArr) => {
       axios.get(`/classes/type/${props.classTypeId}`)
         .then(result => setClassLists(result.data.map((element, index) => (
-          <li key={index}>
+          <li key={index} className="bubble">
             <h2>{element.name} -- {idArr.includes(element.class_id) ? "Already registered!" : `${element.spots_remaining} spots left!`}</h2>
             <h3>Day: {formatDate(element.start_datetime)}</h3>
             <h3>Time: {formatTime(element.start_datetime)} - {formatTime(element.end_datetime)}</h3>

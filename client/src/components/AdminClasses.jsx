@@ -22,7 +22,7 @@ export default function Admin(props) {
     axios.get('/classes')
     .then(result => {
       setClassLists(result.data.map((element, index) => (
-        <li key={index}>
+        <li key={index} className="bubble">
           <h2>{element.name} -- {element.spots_remaining} spots left</h2>
           <h3>Day: {formatDate(element.start_datetime)}</h3>
           <h3>Time: {formatTime(element.start_datetime)} - {formatTime(element.end_datetime)}</h3>
@@ -30,6 +30,7 @@ export default function Admin(props) {
           <Link to={`/admin/class/`}>
             <button onClick={() => props.setClassId(element.class_id)}>View Student List</button>
           </Link>
+          <h3 className="credits">Credits to Register: {element.credit_cost}</h3>
         </li>)));
     })
     .catch(e => console.log(e));
