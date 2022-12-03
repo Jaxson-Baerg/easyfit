@@ -47,7 +47,7 @@ const getSpotsRemaining = async (classList) => {
     classes.push({
       ...c,
       spots_remaining: c.max_students - numStudents.length
-    })
+    });
   }
   return classes;
 }
