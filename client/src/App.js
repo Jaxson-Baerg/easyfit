@@ -19,7 +19,7 @@ const App = () => {
   const cookies = new Cookies();
 
   const setCookieValue = (val) => {
-    cookies.set('loggedIn', val, { path: "/", sameSite: "none" });
+    cookies.set('loggedIn', val, { path: "/" });
   };
 
   const logout = () => {
