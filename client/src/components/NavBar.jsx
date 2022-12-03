@@ -21,13 +21,16 @@ export default function NavBar(props) {
 
   return (
     <nav className="wave">
-      <div>
-        <h1><Link to="/" style={{all: "unset"}}> EasyFit </Link></h1>
-        <img src={require('../images/easyfit-logo.png')} alt='EasyFit' width={"50"} height={"50"}/>
-        {props.loggedInId && <><h4>Logged in as: {studentName}</h4><button onClick={() => {props.logout(); navigate('/'); window.location.reload(false);}}>Logout</button></>}
+      <div className="loginDiv">
+        <div className="header">
+          <h1><Link to="/" style={{all: "unset"}}> EasyFit </Link></h1>
+          <img src={require('../images/easyfit-logo.png')} alt='EasyFit' width={"50"} height={"50"}/>
+          {props.loggedInId && <h4>Logged in as: {studentName}</h4>}
+        </div>
+        {props.loggedInId ? <button className="logoutButton" onClick={() => {props.logout(); navigate('/'); window.location.reload(false);}}>Logout</button> : <button className="loginButton" onClick={() => navigate('/login')}>Login</button>}
       </div>
       <NavList navOptions={navOptions}/>
-      <button onClick={() => navOptions.current.classList.toggle('show')}><i className="fa-solid fa-bars fa-2x"></i></button>
+      <button className="optionsButton" onClick={() => navOptions.current.classList.toggle('show')}><i className="fa-solid fa-bars fa-2x"></i></button>
     </nav>
    );
 };
