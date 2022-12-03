@@ -1,6 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const { getStudents, getStudentByEmail, getStudentById, updateStudent } = require('../db/queries/studentQueries');
+const nodemailer = require('nodemailer');
+
+require('dotenv').config();
+
+const { getStudents, getStudentByEmail, getStudentById, getStudentCodeById, updateStudent } = require('../db/queries/studentQueries');
 const { getAllClassesPerStudent } = require('../db/queries/classStudentsQueries');
 const { getClassList, getClassTypeList } = require('../helpers/classHelpers');
 
@@ -34,6 +38,42 @@ router.get('/:id', async (req, res) => {
   try {
     const student = await getStudentById(Number(req.params.id));
     res.json(student);
+  } catch(e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+// Get student code by id
+router.get('/code/:id', async (req, res) => {
+  try {
+    const code = await getStudentCodeById(Number(req.params.id));
+    res.json(code);
+  } catch(e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+// Send code email to student's email
+router.get('/send/:email', async (req, res) => {
+  try {
+    let transporter = nodemailer.createTransport({
+      host: "smtp.zoho.com",
+      port: 465,
+      secure: true,
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+      },
+    });
+
+    let info = await transporter.sendMail({
+      from: '"EasyFit " <jaxson.baerg@zohomail.com>',
+      to: 'jaxson.baerg@gmail.com',
+      subject: 'Hello',
+      text: `Here is login code from EasyFit! ${req.query.unique_code}`,
+    });
+
+    res.json(info);
   } catch(e) {
     res.status(500).json({ error: e.message });
   }
