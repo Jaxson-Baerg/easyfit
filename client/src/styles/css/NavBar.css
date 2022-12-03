@@ -9,7 +9,7 @@ nav h1 {
   font-size: xx-large;
   cursor: pointer;
 }
-nav div {
+nav .header {
   background-color: #d66464;
   border: 0.1em solid #d66464;
   border-radius: 2em;
@@ -17,6 +17,9 @@ nav div {
   align-items: center;
   margin: 1em;
   padding: 1em;
+}
+nav .loginDiv {
+  display: flex;
 }
 nav li {
   display: inline-block;
@@ -43,12 +46,22 @@ nav li:hover {
   border: 0.1em solid #802d2d;
   box-shadow: 8px 5px 5px rgb(83, 0, 0);
 }
-nav button {
+nav .optionsButton {
   all: unset;
   cursor: pointer;
   padding: 1em;
   margin-right: 1em;
   width: 4em;
+}
+nav .loginButton, nav .logoutButton {
+  align-self: center;
+  margin: 1em;
+  padding: 1em;
+  cursor: pointer;
+  background-color: #4ad092;
+  border: 0.1em solid #4ad092;
+  border-radius: 1.2em;
+  box-shadow: 3px 2px 2px #1e8a57;
 }
 nav i {
   transition: font-size 0.1s ease;
