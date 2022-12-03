@@ -11,6 +11,9 @@
 .adminclass div {
   width: 80%;
 }
+.adminclass button {
+  padding: 1em;
+}
 
 #root {
   display: flex;

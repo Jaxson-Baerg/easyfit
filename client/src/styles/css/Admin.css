@@ -11,6 +11,9 @@
 .admin ul {
   width: 80%;
 }
+.admin button {
+  padding: 1em;
+}
 
 #root {
   display: flex;
