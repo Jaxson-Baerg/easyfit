@@ -4,7 +4,6 @@ import axios from "axios";
 
 import '../styles/css/AdminClass.css';
 
-
 export default function AdminClass(props) {
   const [students, setStudents] = useState([]);
 
@@ -16,7 +15,7 @@ export default function AdminClass(props) {
         <Link to={`/admin/student`}>
           <button onClick={() => props.setStudentId(element.student_id)}>View</button>
         </Link>
-        <Link to={'/register'}>
+        <Link to={'/register-account'}>
           <button onClick={() => props.setStudentId(element.student_id)}>Cancel Registration</button>
         </Link>
       </li>
