@@ -3,12 +3,10 @@ const router = express.Router();
 const { addStudent } = require('../db/queries/studentQueries');
 
 router.post('/', async (req, res) => {
-  const { first_name, last_name, email } = req.body;
+  const { first_name, last_name, email } = req.query;
     try {
       const student = await addStudent(first_name, last_name, email);
-      req.session["student_id"] = student.student_id;
-      console.log(req.session);
-      res.redirect('http://localhost:3000/');
+      res.json(student);
     } catch(e) {
       res.status(500).json({ error: e.message });
     }

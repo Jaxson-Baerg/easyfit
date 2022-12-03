@@ -55,7 +55,7 @@ const updateStudent = async (student_id, studentInfo) => {
 const addStudent = async (first_name, last_name, email) => {
   const unique_code = generateUniqueCode()
   const queryDef = {
-    text: `INSERT INTO students (first_name, last_name, email, unique_code, credits) VALUES ($1, $2, $3, $4, $5) RETURNING *;`,
+    text: `INSERT INTO students (first_name, last_name, email, unique_code, credits) VALUES ($1, $2, $3, $4, $5) RETURNING student_id;`,
     values: [first_name, last_name, email, unique_code, 0]
   };
 
