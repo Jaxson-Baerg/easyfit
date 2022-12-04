@@ -67,8 +67,8 @@ router.get('/send/:email', async (req, res) => {
     });
 
     let info = await transporter.sendMail({
-      from: '"EasyFit " <pwjforme@zohomail.com>',
-      to: 'pwjforme@gmail.com',
+      from: '"EasyFit " <jaxson.baerg@zohomail.com>',
+      to: 'jaxson.baerg@gmail.com',
       subject: 'Hello',
       text: `Here is login code from EasyFit! ${req.query.unique_code}`,
     });
