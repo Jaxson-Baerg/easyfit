@@ -1,13 +1,15 @@
 import React, {useState} from 'react'
 import Purchase from './Purchase'
 
-export default function SelectCredits() {
+export default function SelectCredits(props) {
   const [credits, setCredits] = useState(1);
   const [formIsShown, setFormIsShown] = useState(false);
 
   const handleChange = (event) => {
     setCredits(event.target.value);
   };
+  
+  let subtotal = credits * 15.00;
 
   const values = [...Array(16).keys()].slice(1);
   const options = values.map((element, index) => <option key={index} value={element}>{element}</option>)
@@ -21,9 +23,9 @@ export default function SelectCredits() {
         </select>
       </label>
       <h3>Subtotal:</h3>
-      <p>{credits} credits is ${credits * 15.00} CAD</p>
+      <p>{credits} credits is ${subtotal} CAD</p>
       <button onClick={() => setFormIsShown(true)}>Proceed</button>
-      {formIsShown && <Purchase credits={credits}/>}
+      {formIsShown && <Purchase credits={credits} studentId={props.studentId} subtotal={subtotal}/>}
     </>
   )
 }

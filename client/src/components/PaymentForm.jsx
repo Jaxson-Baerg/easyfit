@@ -3,7 +3,7 @@ import React from "react";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import axios from "axios";
 
-export default function CheckoutForm() {
+export default function CheckoutForm(props) {
   const stripe = useStripe();
   const elements = useElements();
 
@@ -21,7 +21,7 @@ export default function CheckoutForm() {
         const response = await axios.post(
           "http://localhost:8080/stripe/charge",
           {
-            amount: 999,
+            amount: props.subtotal * 100,
             id: id,
           }
         );
@@ -29,6 +29,12 @@ export default function CheckoutForm() {
         console.log("Stripe 35 | data", response.data.success);
         if (response.data.success) {
           console.log("CheckoutForm.js 25 | payment successful!");
+          
+          let currentCredits = Number((await axios.get(`/students/${props.studentId}`)).data[0].credits);
+
+          let finalCredits = await axios.put(`/students/${props.studentId}`, null, { params: {
+            credits: currentCredits + Number(props.credits)
+          }})
         }
       } catch (error) {
         console.log("CheckoutForm.js 28 | ", error);
