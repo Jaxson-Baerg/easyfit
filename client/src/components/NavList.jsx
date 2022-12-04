@@ -9,6 +9,7 @@ export default function NavList(props) {
          <li><Link to="/" style={{all: "unset"}}> Home </Link></li>
          <li><Link to="/account" style={{all: "unset"}}> My Account </Link></li>
          <li><Link to="/purchase" style={{all: "unset"}}> Purchase Credits </Link></li>
+         <li><Link to="/admin" style={{all: "unset"}}> Admin </Link></li>
       </ul>
    );
 };
