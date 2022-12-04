@@ -1,4 +1,4 @@
-.purchase {
+.receipt {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -7,8 +7,6 @@
   width: 90%;
   padding-top: 5em;
   padding-bottom: 5em;
-  margin-top: 2em;
-  border: 1em solid rgb(255, 149, 149);
 }
 
 #root {
@@ -18,4 +16,4 @@
   background-color: rgb(249, 204, 204);
 }
 
-/*# sourceMappingURL=Purchase.css.map */
+/*# sourceMappingURL=Receipt.css.map */
