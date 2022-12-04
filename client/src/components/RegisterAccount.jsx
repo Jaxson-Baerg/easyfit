@@ -28,14 +28,17 @@ export default function RegisterAccount(props) {
         <h4>Create Account</h4>
         <p>Get started with your free account</p>
         <form onSubmit={submitHandler}>
-          <div>
-            <span><i className="fa fa-user"></i></span>
-            <input name="first_name" placeholder="First Name" type="text" />
-            <input name="last_name" placeholder="Last Name" type="text" />
+          <div className='form__group field'>
+            <input id="first_name" name="first_name" placeholder="First Name" type="text" className='form__field' required />
+            <label htmlFor='first_name' className='form__label'>First Name</label>
           </div>
-          <div>
-            <span> <i className="fa fa-envelope"></i> </span>
-            <input name="email" placeholder="Email address" type="email" />
+          <div className='form__group field'>
+            <input id="last_name" name="last_name" placeholder="Last Name" type="text" className='form__field' required />
+            <label htmlFor='last_name' className='form__label'>Last Name</label>
+          </div>
+          <div className='form__group field'>
+            <input id="email" name="email" placeholder="Email address" type="email" className='form__field' required />
+            <label htmlFor='email' className='form__label'>Email address</label>
           </div>
           <button type='submit'>Submit</button>
           <p>Already have an account? <a href="/login">Log In</a> </p>

@@ -21,8 +21,10 @@ export default function AdminLogin(props) {
   return (
     <div className="adminlogin">
       <form onSubmit={handleSubmit}>
-        <label htmlFor="password">Admin Password:</label><br/>
-        <input type={"password"} id="password"/>
+        <div className="form__group field">
+          <input id="password" name="password" type={"password"} className="form__field" required />
+          <label htmlFor="password" className="form__label">Admin Password:</label><br/>
+        </div>
         <button type={"submit"}>Submit</button>
       </form>
     </div>
