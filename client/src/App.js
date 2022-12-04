@@ -11,7 +11,7 @@ import AdminLogin from './components/AdminLogin';
 import Account from './components/Account';
 import Login from './components/Login';
 import RegisterAccount from './components/RegisterAccount';
-import SelectCredits from './components/SelectCredits';
+import Purchase from './components/Purchase';
 
 const App = () => {
   const [admin, setAdmin] = useState(false);
@@ -36,7 +36,7 @@ const App = () => {
           <Route path='/account' element={cookies.get('loggedIn') ? <Account/> : <Navigate to='/login' replace={true}/>}/>
           <Route path='/admin/*' element={admin ? <Admin/> : <AdminLogin admin={admin} setAdmin={setAdmin}/>}/>
           <Route path='/login/*' element={<Login setCookieValue={setCookieValue}/>}/>
-          <Route path='/purchase' element={cookies.get('loggedIn') ? <SelectCredits studentId={cookies.get('loggedIn')}/> : <Navigate to='/login' replace={true}/>}/>
+          <Route path='/purchase/*' element={cookies.get('loggedIn') ? <Purchase studentId={cookies.get('loggedIn')}/> : <Navigate to='/login' replace={true}/>}/>
           <Route path='/register-account' element={<RegisterAccount setCookieValue={setCookieValue}/>}/>
         </Routes>
       </Router>

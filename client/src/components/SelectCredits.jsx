@@ -1,5 +1,8 @@
-import React, {useState} from 'react'
-import Purchase from './Purchase'
+import React, {useState} from 'react';
+
+import StripeContainer from './StripeContainer';
+
+import '../styles/css/SelectCredits.css';
 
 export default function SelectCredits(props) {
   const [credits, setCredits] = useState(1);
@@ -9,23 +12,19 @@ export default function SelectCredits(props) {
     setCredits(event.target.value);
   };
   
-  let subtotal = credits * 15.00;
-
-  const values = [...Array(16).keys()].slice(1);
-  const options = values.map((element, index) => <option key={index} value={element}>{element}</option>)
+  let subtotal = (credits * 15.00).toFixed(2);
 
   return (
-    <>
-      <h3>Please select how many credits you would like to purchase</h3>
-      <label>Credits selected:
-        <select value={credits} onChange={handleChange}>
-          {options}
-        </select>
-      </label>
-      <h3>Subtotal:</h3>
-      <p>{credits} credits is ${subtotal} CAD</p>
-      <button onClick={() => setFormIsShown(true)}>Proceed</button>
-      {formIsShown && <Purchase credits={credits} studentId={props.studentId} subtotal={subtotal}/>}
-    </>
+    <div className='selectcredits'>
+      <div className='bubble'>
+        <h3>Please select how many credits you would like to purchase</h3>
+        <label htmlFor='credits'>Credits selected:</label>
+        <input id='credits' name='credits' type='number' value={credits} onChange={handleChange} min={1} max={10} />
+        <h3 className='subtotal'>Subtotal:</h3>
+        <p className='subtotal'>${subtotal} CAD</p>
+        {!formIsShown && <button onClick={() => setFormIsShown(true)}>Proceed</button>}
+      </div>
+      {formIsShown && <StripeContainer credits={credits} studentId={props.studentId} subtotal={subtotal} setPaymentDetails={props.setPaymentDetails}/>}
+    </div>
   )
 }

@@ -15,10 +15,11 @@ export default function CodeInput(props) {
   return (
     <div className="codeinput">
       <article>
-        <h4>Enter the code sent to your email:</h4>
+        <h2>Enter the code sent to your email:</h2>
         <form onSubmit={submitHandler}>
-          <div>
-            <input name="code" type="password"/>
+          <div className='form__group field'>
+            <input id="code" name="code" type="password" placeholder='Type code here' className='form__field'/>
+            <label htmlFor='code' className='form__label'>Type code here</label>
           </div>
           <button type='submit'>Submit</button>
         </form>
