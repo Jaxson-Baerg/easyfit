@@ -1,6 +1,6 @@
 INSERT INTO
 class_types(name, description)
 VALUES
-  ('Kick-Boxing', 'In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document '),
-  ('Power Hour', 'Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs. The passage is attributed to an unknown'),
-  ('Sad Yoga', 'Lorem ipsum is a pseudo-Latin text used in web design, typography, layout, and printing in place of English to emphasise design elements over content. Its also');
+  ('Kick-Boxing', 'Kick-boxing is a group fitness class that combines martial arts techniques with fast-paced cardio. This high-energy workout challenges the beginner and elite athlete alike. Build stamina, improve coordination and flexibility, and burn calories as you build lean muscle with this fun and challenging workout '),
+  ('Power Hour', 'Want to get a full body workout in on your lunch break? Then this class is the class for you. This class will focus on strength and conditioning. This class can involve upper and lower body functional training exercises during the sculpting portion of the class using various equipment. We want to keep you guessing and challenge you differently with every class! Our goal is to offer encouragement rather than intimidation!'),
+  ('Sad Yoga', 'A Therapeutic Approach to Mental Health and Healing');
