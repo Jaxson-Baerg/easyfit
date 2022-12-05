@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Cookies from 'universal-cookie';
 import axios from 'axios';
+import timeConvert from '../helpers/timeConvert';
 
 import '../styles/css/Account.css';
 
@@ -18,7 +19,7 @@ export default function Account() {
     };
     const formatTime = (dateStr) => {
       const tempDate = dateStr.split(/[-T.]+/);
-      return `${tempDate[3].split(':').slice(0, 2).join(':')}${Number(tempDate[3].split(':')[0]) > 11 || Number(tempDate[3].split(':')[0]) === 24 ? "pm" : "am"}`;
+      return timeConvert(tempDate[3]);
     };
 
     const cancelRegistration = (class_id) => {
