@@ -27,27 +27,39 @@ export default function ViewSchedule(props) {
         if (window.confirm(`Are you sure you want to spend ${credit_cost} credit(s) to register for this class?`)) {
           // Check if student has enough credits to register
           axios.get(`/students/${studentId}`)
-            .then(result => {
-              if (result.data[0].credits >= credit_cost) {
-                // Axios request x2 (decrease credits & register student for class)
-                axios.put(`/students/${studentId}`, null, { params: {
-                  credits: result.data[0].credits - credit_cost
+          .then(result => {
+            if (result.data[0].credits >= credit_cost) {
+              // Axios request x4 (decrease credits register student for class, get class start-time, and set email reminder to be sent 24 hours before class start-time)
+              axios.put(`/students/${studentId}`, null, { params: {
+                credits: result.data[0].credits - credit_cost
+              }})
+              .then(() => {
+                axios.post(`/classes/${class_id}/register`, null, { params: {
+                  student_id: studentId
                 }})
-                  .then(() => {
-                    axios.post(`/classes/${class_id}/register`, null, { params: {
-                      student_id: studentId
-                    }})
-                      .then(() => {
-                        props.setClassId(class_id);
-                        navigate('/schedule/success');
-                      })
+                .then(() => {
+                  axios.get(`/classes/${class_id}`)
+                  .then(classResult => {
+                    const dateStr = classResult.data[0].start_datetime;
+                    const tempDate = dateStr.split(/[-T.]+/);
+                    const month = tempDate[1];
+                    const day = tempDate[2];
+                    const hours = tempDate[3].slice(0, 2);
+                    const minutes = tempDate[3].slice(3, 5);
+                    console.log(month, day, hours, minutes);
+                    axios.get(`students/send/${result.data[0].email}/reminder/${month}/${day}/${hours}/${minutes}`)
+                    .then(() => {
+                      props.setClassId(class_id);
+                      navigate('/schedule/success');
+                    })
                   })
-              } else {
-                navigate('/purchase');
-              }
-            })
-            .catch(e => {});
-          
+                })
+              })
+            } else {
+              navigate('/purchase');
+            }
+          })
+          .catch(e => {});
         }
       } else {
         if (window.confirm("You must login first to register for a class.")) {

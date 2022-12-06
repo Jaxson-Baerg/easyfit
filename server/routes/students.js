@@ -80,8 +80,7 @@ router.get('/send/:email', async (req, res) => {
   }
 });
 
-// Send reminder email to student's email about upcoming class
-router.get('/send/:email/reminder', async (req, res) => {
+router.get('/send/:email/receipt/:credits/:subtotal', async (req, res) => {
   try {
     let transporter = nodemailer.createTransport({
       host: "smtp.zoho.com",
@@ -93,12 +92,38 @@ router.get('/send/:email/reminder', async (req, res) => {
       },
     });
 
-    let task = cron.schedule('* * */24 * * *', async () => {
+    let info = await transporter.sendMail({
+      from: '"EasyFit " <pwjforme@zohomail.com>',
+      to: 'pwjforme@gmail.com',
+      subject: 'Receipt for Recent Purchase',
+      text: `Thank you for your purchase! You have bought ${req.params.credits} credits for a total of $${req.params.subtotal} CAD`,
+    });
+
+    res.json(info);
+  } catch(e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+// Send reminder email to student's email about upcoming class
+router.get('/send/:email/reminder/:month/:day/:hours/:minutes', async (req, res) => {
+  try {
+    let transporter = nodemailer.createTransport({
+      host: "smtp.zoho.com",
+      port: 465,
+      secure: true,
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+      },
+    });
+
+    let task = cron.schedule(`${req.params.minutes} ${req.params.hours} ${req.params.day} ${req.params.month} 2`, async () => {
       let info = await transporter.sendMail({
         from: '"EasyFit " <jaxson.baerg@zohomail.com>',
         to: 'jaxson.baerg@gmail.com',
         subject: 'Reminder',
-        text: `Just a friendly reminder about your upcoming class in a day!`,
+        text: `Just a friendly reminder about your upcoming class in ${req.params.hours} hours!`,
       });
 
       res.json(info);
@@ -106,7 +131,7 @@ router.get('/send/:email/reminder', async (req, res) => {
 
     setTimeout(() => {
       task.stop();
-    }, 1000 * 60 * 60 * 24);
+    }, 1000 * 60 * 60 * 24 + 5);
 
   } catch(e) {
     res.status(500).json({ error: e.message });
