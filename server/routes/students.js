@@ -68,8 +68,8 @@ router.get('/send/:email', async (req, res) => {
     });
 
     let info = await transporter.sendMail({
-      from: '"EasyFit " <pwjforme@zohomail.com>',
-      to: 'pwjforme@gmail.com',
+      from: '"EasyFit " <jaxson.baerg@zohomail.com>',
+      to: 'jaxson.baerg@gmail.com',
       subject: 'Hello',
       text: `Here is login code from EasyFit! ${req.query.unique_code}`,
     });
@@ -95,8 +95,8 @@ router.get('/send/:email/reminder', async (req, res) => {
 
     let task = cron.schedule('* * */24 * * *', async () => {
       let info = await transporter.sendMail({
-        from: '"EasyFit " <pwjforme@zohomail.com>',
-        to: 'pwjforme@gmail.com',
+        from: '"EasyFit " <jaxson.baerg@zohomail.com>',
+        to: 'jaxson.baerg@gmail.com',
         subject: 'Reminder',
         text: `Just a friendly reminder about your upcoming class in a day!`,
       });
