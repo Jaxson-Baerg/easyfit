@@ -81,10 +81,10 @@ export default function ViewSchedule(props) {
 
   return (
     <div className="viewschedule">
-      {classLists.length > 0 && <><h1>Schedule for {props.classTypeObj.name}</h1><ul>
+      {classLists.length > 0 && <><h1 className='title'>Schedule for {props.classTypeObj.name}</h1><ul>
         {classLists}
       </ul></>}
-      {classLists.length === 0 && <><h1>There are currently no scheduled classes for {props.classTypeObj.name}</h1><h3>Check back later!</h3></>}
+      {classLists.length === 0 && <><h1 className='title'>There are currently no scheduled classes for {props.classTypeObj.name}</h1><h3>Check back later!</h3></>}
     </div>  
   )
 }

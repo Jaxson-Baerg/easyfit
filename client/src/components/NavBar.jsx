@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 import NavList from "./NavList";
@@ -22,8 +22,8 @@ export default function NavBar(props) {
   return (
     <nav className="wave">
       <div className="loginDiv">
-        <div className="header">
-          <h1><Link to="/" style={{all: "unset"}}> EasyFit </Link></h1>
+        <div className="header" onClick={() => navigate('/')}>
+          <h1> EasyFit </h1>
           <img src={require('../images/easyfit-logo.png')} alt='EasyFit' width={"50"} height={"50"}/>
           {props.loggedInId && <h4>Logged in as: {studentName}</h4>}
         </div>

@@ -25,8 +25,7 @@ export default function Home(props) {
 
   return (
     <div className="home">
-      <img src={require('../images/homepage-logo.jpg')} alt='EasyFit' width={"1200"} height={"300"}/>
-      <h2>Classes</h2>
+      <h1 className="title">Pick a Class</h1>
       <ul>
         {classTypes}
       </ul>

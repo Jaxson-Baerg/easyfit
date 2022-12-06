@@ -5,9 +5,15 @@ nav {
   height: 9em;
 
   h1 {
+    color: #00595a;
+    text-shadow: 1px 1px 2px black;
     margin-left: 1em;
     font-size: xx-large;
-    cursor:pointer
+  }
+
+  h4 {
+    color: #00595a;
+    text-shadow: 1px 1px 2px black;
   }
 
   .header {
@@ -18,6 +24,8 @@ nav {
     align-items: center;
     margin: 1em;
     padding: 1em;
+    box-shadow: 3px 2px 2px rgb(91, 44, 39);
+    cursor: pointer;
   }
 
   .loginDiv {
@@ -37,11 +45,11 @@ nav {
     color:#252525;
     background-color: #d66464;
     text-align:center;
-    transition: all 0.2s;
     font-size: medium;
     margin: 1em;
     box-shadow: 6px 2px 2px rgb(105, 64, 64);
     cursor:pointer;
+    transition: all 0.2s;
   }
   
   li:hover {
@@ -64,6 +72,8 @@ nav {
     margin: 1em;
     padding: 1em;
     cursor:pointer;
+    color: rgb(91, 44, 39);
+    font-weight: 600;
     background-color: #4ad092;
     border:0.1em solid #4ad092;
     border-radius:1.2em;
@@ -71,8 +81,9 @@ nav {
   }
 
   .loginButton:hover, .logoutButton:hover {
-    background-color:#1e8a57;
+    background-color:#25aa6c;
     border:0.1em solid #1e8a57;
+    box-shadow: 5px 3px 3px #1e8a57;
   }
 
   i {
@@ -86,10 +97,10 @@ nav {
   ul {
     display: block;
     position: relative;
-    right: -300px;
+    right: -200px;
     margin-bottom: 0;
     opacity: 0;
-    transition: all .75s ease;
+    transition: all .5s ease;
   }
 }
 
