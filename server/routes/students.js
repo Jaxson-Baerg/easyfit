@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const nodemailer = require('nodemailer');
+const cron = require('node-cron');
 
 require('dotenv').config();
 
@@ -67,13 +68,46 @@ router.get('/send/:email', async (req, res) => {
     });
 
     let info = await transporter.sendMail({
-      from: '"EasyFit " <jaxson.baerg@zohomail.com>',
-      to: 'jaxson.baerg@gmail.com',
+      from: '"EasyFit " <pwjforme@zohomail.com>',
+      to: 'pwjforme@gmail.com',
       subject: 'Hello',
       text: `Here is login code from EasyFit! ${req.query.unique_code}`,
     });
 
     res.json(info);
+  } catch(e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+// Send reminder email to student's email about upcoming class
+router.get('/send/:email/reminder', async (req, res) => {
+  try {
+    let transporter = nodemailer.createTransport({
+      host: "smtp.zoho.com",
+      port: 465,
+      secure: true,
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+      },
+    });
+
+    let task = cron.schedule('* * */24 * * *', async () => {
+      let info = await transporter.sendMail({
+        from: '"EasyFit " <pwjforme@zohomail.com>',
+        to: 'pwjforme@gmail.com',
+        subject: 'Reminder',
+        text: `Just a friendly reminder about your upcoming class in a day!`,
+      });
+
+      res.json(info);
+    });
+
+    setTimeout(() => {
+      task.stop();
+    }, 1000 * 60 * 60 * 24);
+
   } catch(e) {
     res.status(500).json({ error: e.message });
   }
