@@ -10,19 +10,44 @@
 
   ul {
     width: 80%;
+    padding: 0;
+  }
+
+  li {
+    list-style: none;
+  }
+
+  h3 {
+    text-align: left;
+  }
+
+  .subtitle {
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
   }
 
   button {
+    margin: 1em;
     padding: 1em;
+    cursor:pointer;
+    background-color: #4ad092;
+    border:0.1em solid #4ad092;
+    border-radius:1.2em;
+    box-shadow: 3px 2px 2px #1e8a57;
+  }
+
+  button:hover {
+    background-color:#1e8a57;
+    border:0.1em solid #1e8a57;
   }
 
   .bubble {
-    margin: 1em;
-    width: 100%;
     background-color: rgb(246, 122, 108);
     border: 0.1em solid rgb(246, 122, 108);
     border-radius: 2em;
     padding: 1em;
+    margin: 1em;
   }
 
   .credits {
