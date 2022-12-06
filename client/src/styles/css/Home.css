@@ -8,33 +8,26 @@
   padding-top: 5em;
   padding-bottom: 5em;
 }
-
-#root {
+.home ul {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  background-color: rgb(249, 204, 204);
+  align-items: center;
+  width: 80%;
+  padding: 0;
 }
-
-li {
-  padding: 1em;
-  border-bottom: 0.1em solid #000000;
-}
-li .bubble {
+.home li {
   display: flex;
-  flex-direction: row;
-  background-color: rgb(246, 122, 108);
-  border: 0.1em solid rgb(246, 122, 108);
-  border-radius: 2em;
-  padding: 1em;
+  flex-direction: column;
+  align-items: center;
+  list-style: none;
 }
-li .bubble div {
-  padding-right: 1em;
+.home li h4 {
+  text-align: center;
 }
-li .bubble span {
-  padding: 1em;
+.home li button {
+  width: 80%;
 }
-li button {
+.home button {
   margin: 1em;
   padding: 1em;
   cursor: pointer;
@@ -43,9 +36,24 @@ li button {
   border-radius: 1.2em;
   box-shadow: 3px 2px 2px #1e8a57;
 }
-li button:hover {
+.home button:hover {
   background-color: #1e8a57;
   border: 0.1em solid #1e8a57;
+}
+.home .bubble {
+  margin: 1em;
+  width: 100%;
+  background-color: rgb(246, 122, 108);
+  border: 0.1em solid rgb(246, 122, 108);
+  border-radius: 2em;
+  padding: 1em;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: rgb(249, 204, 204);
 }
 
 /*# sourceMappingURL=Home.css.map */

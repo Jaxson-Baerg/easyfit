@@ -8,8 +8,20 @@
   padding-top: 5em;
   padding-bottom: 5em;
 
-  button {
-    padding: 1em;
+  ul {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+    padding: 0;
+  }
+
+  li {
+    list-style: none;
+  }
+
+  h3 {
+    text-align: left;
   }
 
   .credits {
@@ -23,6 +35,21 @@
     border: 0.1em solid rgb(246, 122, 108);
     border-radius: 2em;
     padding: 1em;
+  }
+
+  button {
+    margin: 1em;
+    padding: 1em;
+    cursor:pointer;
+    background-color: #4ad092;
+    border:0.1em solid #4ad092;
+    border-radius:1.2em;
+    box-shadow: 3px 2px 2px #1e8a57;
+  }
+
+  button:hover {
+    background-color:#1e8a57;
+    border:0.1em solid #1e8a57;
   }
 }
 

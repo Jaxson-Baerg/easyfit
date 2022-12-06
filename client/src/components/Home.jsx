@@ -16,14 +16,10 @@ export default function Home(props) {
   }, []);
 
   const classTypes = classTypeList.map((element, index) => (
-    <li key={index}>
-      <div className="bubble">
-        <div>
-          <h3>{element.name}</h3>
-          <button onClick={() => {props.setClassTypeId(element.class_type_id); navigate('/schedule');}}>Schedule</button>
-        </div>
-        <span>{element.description}</span>
-      </div>
+    <li key={index} className="bubble">
+      <h1>{element.name}</h1>
+      <h4>{element.description}</h4>
+      <button onClick={() => {props.setClassTypeId(element.class_type_id); navigate('/schedule');}}>View Schedule</button>
     </li>
   ))
 

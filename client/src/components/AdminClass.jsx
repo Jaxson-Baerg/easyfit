@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from 'react-router-dom';
-import axios from "axios";
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import timeConvert from '../helpers/timeConvert';
 
 import '../styles/css/AdminClass.css';
@@ -8,6 +8,13 @@ import '../styles/css/AdminClass.css';
 export default function AdminClass(props) {
   const [students, setStudents] = useState([]);
   const navigate = useNavigate();
+
+  const alertPopup = (id) => {
+    document.getElementById(id).setAttribute('class', 'visible');
+    setTimeout(() => {
+      document.getElementById(id).removeAttribute('class');
+    }, 2000);
+  };
 
   const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   const formatDate = (dateStr) => { // "2022-12-15T14:30:00.000Z"
@@ -44,9 +51,12 @@ export default function AdminClass(props) {
     .then(result => setStudents(result.data.map((element, index) =>
       <li key={index} className="bubble">
         <h2>{element.first_name} {element.last_name}</h2>
-        <Link to={`/admin/student`}>
-          <button onClick={() => props.setStudentId(element.student_id)}>View</button>
-        </Link>
+        <div className='email'>
+          <h4>Email: </h4>
+          <input onClick={event => {navigator.clipboard.writeText(event.target.value); alertPopup(element.student_id);}} value={element.email} readOnly/>
+          <p id={element.student_id} className="invisible">Copied ✓</p>
+        </div>
+        <h4>Credits: {element.credits}</h4>
         <button onClick={() => cancelRegistration(element.student_id, props.classObj.class_id)}>Cancel Registration</button>
       </li>
     )))
@@ -55,14 +65,12 @@ export default function AdminClass(props) {
   
   return (
     <div className="adminclass">
-      <div>
-        <h1>Showing students for: {props.classObj.name}</h1>
-        <h3>Day: {formatDate(props.classObj.start_datetime)}</h3>
-        <h3>Time: {formatTime(props.classObj.start_datetime)} - {formatTime(props.classObj.end_datetime)}</h3>
-        <ul className='students'>
-          {students}
-        </ul>
-      </div>
+      <h1>Showing students for: {props.classObj.name}</h1>
+      <h3>Day: {formatDate(props.classObj.start_datetime)}</h3>
+      <h3>Time: {formatTime(props.classObj.start_datetime)} - {formatTime(props.classObj.end_datetime)}</h3>
+      <ul className='students'>
+        {students}
+      </ul>
     </div>  
   )
 }

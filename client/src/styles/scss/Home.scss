@@ -7,33 +7,27 @@
   width: 90%;
   padding-top: 5em;
   padding-bottom: 5em;
-}
 
-#root {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  background-color: rgb(249, 204, 204);
-}
-
-li {
-  padding: 1em;
-  border-bottom: 0.1em solid #000000;
-
-  .bubble {
+  ul {
     display: flex;
-    flex-direction: row;
-    background-color: rgb(246, 122, 108);
-    border: 0.1em solid rgb(246, 122, 108);
-    border-radius: 2em;
-    padding: 1em;
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+    padding: 0;
+  }
 
-    div {
-      padding-right: 1em;
+  li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    list-style: none;
+
+    h4 {
+      text-align: center;
     }
 
-    span {
-      padding: 1em;
+    button {
+      width: 80%;
     }
   }
 
@@ -51,4 +45,20 @@ li {
     background-color:#1e8a57;
     border:0.1em solid #1e8a57;
   }
+
+  .bubble {
+    margin: 1em;
+    width: 100%;
+    background-color: rgb(246, 122, 108);
+    border: 0.1em solid rgb(246, 122, 108);
+    border-radius: 2em;
+    padding: 1em;
+  }
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: rgb(249, 204, 204);
 }
