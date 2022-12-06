@@ -35,9 +35,20 @@ const createClass = async ({ class_type_id, start_datetime, end_datetime, credit
   return data.rows[0];
 };
 
+const deleteClass = async (class_id) => {
+  const queryDef = {
+    text: 'DELETE FROM classes WHERE class_id = $1 RETURNING *;',
+    values: [class_id]
+  };
+
+  const data = await db.query(queryDef);
+  return data.rows;
+};
+
 module.exports = {
   getClasses,
   getClassesById,
   getClassesByClassType,
-  createClass
+  createClass,
+  deleteClass
 };

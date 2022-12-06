@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import timeConvert from '../helpers/timeConvert';
 
@@ -7,9 +7,27 @@ import '../styles/css/Admin.css';
 
 export default function Admin(props) {
   const [classLists, setClassLists] = useState([]);
+  const navigate = useNavigate();
 
   //Axios call for the class
   useEffect(() => {
+    const deleteClass = async (class_id, credit_cost) => {
+      if (window.confirm(`Deleting this class will unregister all currently registered students and refund them ${credit_cost} credit(s). This cannot be undone, do you wish to continue?`)) {
+        const students = await axios.get(`/classes/${class_id}/students`);
+        students.data.forEach(async student => {
+          await axios.put(`/students/${student.student_id}`, null, { params: {
+            credits: student.credits + credit_cost
+          }})
+          await axios.delete(`/classes/${class_id}/register`, { params: {
+            student_id: student.student_id
+          }})
+        });
+        
+        await axios.delete(`/classes/${class_id}`);
+        navigate('/');
+      }
+    };
+
     const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     const formatDate = (dateStr) => { // "2022-12-15T14:30:00.000Z"
       const tempDate = dateStr.split(/[-T.]+/); // tempDate = ["2022", "12", "15", "14:30:00", "000Z"]
@@ -24,7 +42,10 @@ export default function Admin(props) {
     .then(result => {
       setClassLists(result.data.map((element, index) => (
         <li key={index} className="bubble">
-          <h2>{element.name} -- {element.spots_remaining} spots left</h2>
+          <div className='title'>
+            <h2>{element.name} -- {element.spots_remaining} spots left</h2>
+            <i className="fa-solid fa-trash fa-xl" onClick={() => deleteClass(element.class_id, element.credit_cost)}></i>
+          </div>
           <h3>Day: {formatDate(element.start_datetime)}</h3>
           <h3>Time: {formatTime(element.start_datetime)} - {formatTime(element.end_datetime)}</h3>
           <h4>{element.description}</h4>
@@ -35,7 +56,7 @@ export default function Admin(props) {
         </li>)));
     })
     .catch(e => console.log(e));
-  }, [props]);
+  }, [props, navigate]);
 
   return (
     <div className='admin'>

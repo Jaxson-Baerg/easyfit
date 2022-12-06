@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { getClasses, getClassesById, getClassesByClassType, createClass } = require('../db/queries/classQueries');
+const { getClasses, getClassesById, getClassesByClassType, createClass, deleteClass } = require('../db/queries/classQueries');
 const { getAllStudentsPerClass, registerStudent, cancelRegistration } = require('../db/queries/classStudentsQueries');
 const { getStudentList, getClassTypeList, getSpotsRemaining } = require('../helpers/classHelpers');
 
@@ -75,6 +75,15 @@ router.delete('/:class_id/register', async (req, res) => {
   try {
     const classStudent = await cancelRegistration(Number(req.params.class_id), Number(req.query.student_id));
     res.json(classStudent);
+  } catch(e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+router.delete('/:class_id', async (req, res) => {
+  try {
+    const data = await deleteClass(Number(req.params.class_id));
+    res.json(data);
   } catch(e) {
     res.status(500).json({ error: e.message });
   }
