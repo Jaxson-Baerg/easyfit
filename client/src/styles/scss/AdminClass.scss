@@ -8,6 +8,10 @@
   padding-top: 5em;
   padding-bottom: 5em;
 
+  h3 {
+    margin: 0.2em;
+  }
+
   ul {
     display: flex;
     flex-direction: column;
@@ -19,9 +23,30 @@
   li {
     list-style: none;
 
+    h2 {
+      color: #00595a;
+      text-shadow: 1px 1px 2px black;
+      text-decoration: rgb(121, 59, 52) underline;
+    }
+
+    #credits {
+      padding: 1em;
+      border: 0.2em solid #00445a;
+      border-radius: 0.5em;
+      background-color: rgb(121, 59, 52);
+      color: #4ff0ff;
+      text-align: left;
+    }
+
     .email {
       display: flex;
       align-items: center;
+      padding: 1em;
+      border: 0.2em solid #00445a;
+      border-radius: 0.5em;
+      background-color: rgb(121, 59, 52);
+      color: #4ff0ff;
+      text-align: left;
 
       input {
         outline: none;
@@ -49,14 +74,24 @@
     width: 100%;
     background-color: rgb(246, 122, 108);
     border: 0.1em solid rgb(246, 122, 108);
-    border-radius: 2em;
+    border-radius: 0.5em;
     padding: 1em;
+    box-shadow: 5px 3px 3px rgb(91, 44, 39);
+    transition: all 0.1s ease;
+  }
+
+  .bubble:hover {
+    background-color: rgb(194, 97, 87);
+    border: 0.1em solid rgb(194, 97, 87);
+    box-shadow: 8px 5px 5px rgb(65, 30, 26);
   }
 
   button {
     margin: 1em;
     padding: 1em;
     cursor:pointer;
+    color: rgb(91, 44, 39);
+    font-weight: 600;
     background-color: #4ad092;
     border:0.1em solid #4ad092;
     border-radius:1.2em;
@@ -64,8 +99,9 @@
   }
 
   button:hover {
-    background-color:#1e8a57;
+    background-color:#25aa6c;
     border:0.1em solid #1e8a57;
+    box-shadow: 5px 3px 3px #1e8a57;
   }
 }
 

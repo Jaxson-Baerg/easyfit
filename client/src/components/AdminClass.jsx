@@ -56,7 +56,7 @@ export default function AdminClass(props) {
           <input onClick={event => {navigator.clipboard.writeText(event.target.value); alertPopup(element.student_id);}} value={element.email} readOnly/>
           <p id={element.student_id} className="invisible">Copied ✓</p>
         </div>
-        <h4>Credits: {element.credits}</h4>
+        <h4 id="credits">Credits: {element.credits}</h4>
         <button onClick={() => cancelRegistration(element.student_id, props.classObj.class_id)}>Cancel Registration</button>
       </li>
     )))
@@ -68,9 +68,10 @@ export default function AdminClass(props) {
       <h1>Showing students for: {props.classObj.name}</h1>
       <h3>Day: {formatDate(props.classObj.start_datetime)}</h3>
       <h3>Time: {formatTime(props.classObj.start_datetime)} - {formatTime(props.classObj.end_datetime)}</h3>
-      <ul className='students'>
+      {students.length > 0 && <ul className='students'>
         {students}
-      </ul>
+      </ul>}
+      {students.length === 0 && <h2>There are no students registered in this class.</h2>}
     </div>  
   )
 }

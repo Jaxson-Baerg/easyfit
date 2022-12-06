@@ -11,7 +11,7 @@ export default function Schedule(props) {
 
   return (
     <Routes>
-      <Route path='/' element={<ViewSchedule classTypeId={props.classTypeId} setClassId={setClassId} cookies={props.cookies}/>}/>
+      <Route path='/' element={<ViewSchedule classTypeObj={props.classTypeObj} setClassId={setClassId} cookies={props.cookies}/>}/>
       <Route path='/success' element={<RegisterSuccess classId={classId} cookies={props.cookies}/>}/>
     </Routes>
   )

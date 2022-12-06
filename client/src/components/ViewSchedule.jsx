@@ -57,7 +57,7 @@ export default function ViewSchedule(props) {
     };
 
     const getClassList = (idArr) => {
-      axios.get(`/classes/type/${props.classTypeId}`)
+      axios.get(`/classes/type/${props.classTypeObj.class_type_id}`)
         .then(result => setClassLists(result.data.map((element, index) => (
           <li key={index} className="bubble">
             <h2>{element.name} -- {idArr.includes(element.class_id) ? "Already registered!" : `${element.spots_remaining} spots left!`}</h2>
@@ -81,9 +81,10 @@ export default function ViewSchedule(props) {
 
   return (
     <div className="viewschedule">
-      <ul>
+      {classLists.length > 0 && <><h1 className='title'>Schedule for {props.classTypeObj.name}</h1><ul>
         {classLists}
-      </ul>
+      </ul></>}
+      {classLists.length === 0 && <><h1 className='title'>There are currently no scheduled classes for {props.classTypeObj.name}</h1><h3>Check back later!</h3></>}
     </div>  
   )
 }

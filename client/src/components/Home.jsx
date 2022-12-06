@@ -19,13 +19,13 @@ export default function Home(props) {
     <li key={index} className="bubble">
       <h1>{element.name}</h1>
       <h4>{element.description}</h4>
-      <button onClick={() => {props.setClassTypeId(element.class_type_id); navigate('/schedule');}}>View Schedule</button>
+      <button onClick={() => {props.setClassTypeObj(element); navigate('/schedule');}}>View Schedule</button>
     </li>
   ))
 
   return (
     <div className="home">
-      <h1>Classes</h1>
+      <h1 className="title">Pick a Class</h1>
       <ul>
         {classTypes}
       </ul>

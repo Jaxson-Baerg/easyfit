@@ -60,9 +60,9 @@ export default function Account() {
 
   return (
     <div className='account'>
-      <h1>Account</h1>
+      <h1 className='title'>Account</h1>
       <h2>Hello, {student.first_name}!</h2>
-      <h3>Credits: {student.credits}</h3>
+      <h3>You have {student.credits} credits</h3>
       {classes.length > 0 ? <ul>
         {classes}
       </ul> : <span>You aren't registered for any classes yet!</span>}
