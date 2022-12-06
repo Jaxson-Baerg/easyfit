@@ -31,12 +31,15 @@ export default function PaymentForm(props) {
         console.log("Stripe 35 | data", response.data.success);
         if (response.data.success) {
           console.log("PaymentForm.js 25 | payment successful!");
-          
-          let currentCredits = Number((await axios.get(`/students/${props.studentId}`)).data[0].credits);
+
+          let student = (await axios.get(`/students/${props.studentId}`)).data[0];
+          let currentCredits = Number(student.credits);
 
           await axios.put(`/students/${props.studentId}`, null, { params: {
             credits: currentCredits + Number(props.credits)
           }})
+
+          await axios.get(`/students/send/${student.email}/receipt/${props.credits}/${props.subtotal}`)
 
           navigate('/purchase/success');
         } else {
