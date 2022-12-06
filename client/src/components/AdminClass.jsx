@@ -1,32 +1,64 @@
 import React, { useState, useEffect } from "react";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from "axios";
+import timeConvert from '../helpers/timeConvert';
 
 import '../styles/css/AdminClass.css';
 
 export default function AdminClass(props) {
   const [students, setStudents] = useState([]);
+  const navigate = useNavigate();
+
+  const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  const formatDate = (dateStr) => { // "2022-12-15T14:30:00.000Z"
+    const tempDate = dateStr.split(/[-T.]+/); // tempDate = ["2022", "12", "15", "14:30:00", "000Z"]
+    return `${months[tempDate[1] - 1]} ${tempDate[2]}, ${tempDate[0]}`; // "December 15, 2022 - 14:30:00"
+  };
+  const formatTime = (dateStr) => {
+    const tempDate = dateStr.split(/[-T.]+/);
+    return timeConvert(tempDate[3]);
+  };
 
   useEffect(() => {
-    axios.get(`/classes/${props.classId}/students`)
+    const cancelRegistration = async (student_id, class_id) => {
+      if (window.confirm(`Are you sure you wish to cancel this student's registration? This will refund them ${props.classObj.credit_cost} credits.`)) {
+        axios.delete(`/classes/${class_id}/register`, { params: {
+          student_id: student_id
+        }})
+          .then(() => {
+            axios.get(`/students/${student_id}`)
+              .then(result => {
+                axios.put(`/students/${student_id}`, null, { params: {
+                  credits: result.data[0].credits + props.classObj.credit_cost
+                }})
+                  .then(() => navigate('/admin'))
+                  .catch(e => console.log(e));
+              })
+              .catch(e => console.log(e));
+          })
+          .catch(e => console.log(e));
+      }
+    };
+
+    axios.get(`/classes/${props.classObj.class_id}/students`)
     .then(result => setStudents(result.data.map((element, index) =>
       <li key={index} className="bubble">
         <h2>{element.first_name} {element.last_name}</h2>
         <Link to={`/admin/student`}>
           <button onClick={() => props.setStudentId(element.student_id)}>View</button>
         </Link>
-        <Link to={'/register-account'}>
-          <button onClick={() => props.setStudentId(element.student_id)}>Cancel Registration</button>
-        </Link>
+        <button onClick={() => cancelRegistration(element.student_id, props.classObj.class_id)}>Cancel Registration</button>
       </li>
     )))
     .catch(e => console.log(e));
-  }, [props]); 
+  }, [props, navigate]); 
   
   return (
     <div className="adminclass">
       <div>
-        <h1>Students for class id {props.classId}:</h1>
+        <h1>Showing students for: {props.classObj.name}</h1>
+        <h3>Day: {formatDate(props.classObj.start_datetime)}</h3>
+        <h3>Time: {formatTime(props.classObj.start_datetime)} - {formatTime(props.classObj.end_datetime)}</h3>
         <ul className='students'>
           {students}
         </ul>

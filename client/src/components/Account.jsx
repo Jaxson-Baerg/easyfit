@@ -22,13 +22,21 @@ export default function Account() {
       return timeConvert(tempDate[3]);
     };
 
-    const cancelRegistration = (class_id) => {
-      if (window.confirm("Are you sure you wish to cancel?")) {
+    const cancelRegistration = (class_id, credit_cost) => {
+      if (window.confirm(`Are you sure you wish to cancel? This will refund you ${credit_cost} credits.`)) {
         axios.delete(`/classes/${class_id}/register`, { params: {
           student_id: cookies.get('loggedIn')
         }})
           .then(() => {
-            window.location.reload(false);
+            axios.get(`/students/${cookies.get('loggedIn')}`)
+              .then(result => {
+                axios.put(`/students/${cookies.get('loggedIn')}`, null, { params: {
+                  credits: result.data[0].credits + credit_cost
+                }})
+                  .then(() => window.location.reload(false))
+                  .catch(e => console.log(e));
+              })
+              .catch(e => console.log(e));
           })
           .catch(e => console.log(e));
       }
@@ -44,7 +52,7 @@ export default function Account() {
           <h3>Day: {formatDate(element.start_datetime)}</h3>
           <h3>Time: {formatTime(element.start_datetime)} - {formatTime(element.end_datetime)}</h3>
           <h4>{element.description}</h4>
-          <button disabled={element.difference.days < 1} onClick={() => cancelRegistration(element.class_id)}>Cancel Registration</button>
+          <button disabled={element.difference.days < 1} onClick={() => cancelRegistration(element.class_id, element.credit_cost)}>Cancel Registration</button>
         </li>
       ))))
       .catch(e => {});

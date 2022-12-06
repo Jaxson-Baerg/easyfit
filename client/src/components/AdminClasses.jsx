@@ -28,8 +28,8 @@ export default function Admin(props) {
           <h3>Day: {formatDate(element.start_datetime)}</h3>
           <h3>Time: {formatTime(element.start_datetime)} - {formatTime(element.end_datetime)}</h3>
           <h4>{element.description}</h4>
-          <Link to={`/admin/class/`}>
-            <button onClick={() => props.setClassId(element.class_id)}>View Student List</button>
+          <Link to={'/admin/class/'}>
+            <button onClick={() => props.setClassObj(element)}>View Student List</button>
           </Link>
           <h3 className="credits">Credits to Register: {element.credit_cost}</h3>
         </li>)));
@@ -40,7 +40,17 @@ export default function Admin(props) {
   return (
     <div className='admin'>
       <h1>ADMIN</h1>
-      <h2>All Classes:</h2>
+      <div className='subtitle'>
+        <h2>All Classes:</h2>
+        <div>
+          <Link to={'/admin/createclass'}>
+            <button>Create a new class</button>
+          </Link>
+          <Link to={'/admin/createclasstype'}>
+            <button>Create a new class type</button>
+          </Link>
+        </div>
+      </div>
       <ul className='classList'>
         {classLists}
       </ul>

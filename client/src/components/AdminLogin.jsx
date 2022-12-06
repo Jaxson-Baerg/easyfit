@@ -22,7 +22,7 @@ export default function AdminLogin(props) {
     <div className="adminlogin">
       <form onSubmit={handleSubmit}>
         <div className="form__group field">
-          <input id="password" name="password" type={"password"} className="form__field" required />
+          <input id="password" name="password" type={"password"} placeholder="Admin Password:" className="form__field" required />
           <label htmlFor="password" className="form__label">Admin Password:</label><br/>
         </div>
         <button type={"submit"}>Submit</button>
