@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { getClasses, getClassesById, getClassesByClassType } = require('../db/queries/classQueries');
+const { getClasses, getClassesById, getClassesByClassType, createClass } = require('../db/queries/classQueries');
 const { getAllStudentsPerClass, registerStudent, cancelRegistration } = require('../db/queries/classStudentsQueries');
 const { getStudentList, getClassTypeList, getSpotsRemaining } = require('../helpers/classHelpers');
 
@@ -45,6 +45,16 @@ router.get('/:id/students', async (req, res) => {
     const studentIds = await getAllStudentsPerClass(Number(req.params.id)); // Get list of student ids
     const students = await getStudentList(studentIds); // Get student objects based on ids
     res.json(students);
+  } catch(e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+router.post('/create', async (req, res) => {
+  try {
+    const classObj = await createClass(req.query);
+    const classCom = await getClassTypeList([classObj]);
+    res.json(classCom);
   } catch(e) {
     res.status(500).json({ error: e.message });
   }

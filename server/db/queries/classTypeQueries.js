@@ -15,7 +15,18 @@ const getClassTypeById = async (class_type_id) => {
   return data.rows;
 };
 
+const createClassType = async ({ name, description }) => {
+  const queryDef = {
+    text: 'INSERT INTO class_types (name, description) VALUES ($1, $2) RETURNING *;',
+    values: [name, description]
+  };
+
+  const data = await db.query(queryDef);
+  return data.rows[0];
+};
+
 module.exports = {
   getClassTypes,
-  getClassTypeById
+  getClassTypeById,
+  createClassType
 };

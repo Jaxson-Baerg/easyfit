@@ -25,8 +25,19 @@ const getClassesByClassType = async (class_type_id) => {
   return data.rows;
 };
 
+const createClass = async ({ class_type_id, start_datetime, end_datetime, credit_cost, max_students }) => {
+  const queryDef = {
+    text: `INSERT INTO classes (class_type_id, start_datetime, end_datetime, credit_cost, max_students) VALUES ($1, $2, $3, $4, $5) RETURNING *;`,
+    values: [class_type_id, start_datetime, end_datetime, credit_cost, max_students]
+  };
+
+  const data = await db.query(queryDef);
+  return data.rows[0];
+};
+
 module.exports = {
   getClasses,
   getClassesById,
-  getClassesByClassType
+  getClassesByClassType,
+  createClass
 };
