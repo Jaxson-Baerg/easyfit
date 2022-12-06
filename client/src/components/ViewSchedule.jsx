@@ -21,45 +21,37 @@ export default function ViewSchedule(props) {
       return timeConvert(tempDate[3]);
     };
 
-    const handleRegister = (class_id, credit_cost) => {
+    const handleRegister = async (class_id, credit_cost) => {
       const studentId = props.cookies.get('loggedIn');
       if (studentId) {
         if (window.confirm(`Are you sure you want to spend ${credit_cost} credit(s) to register for this class?`)) {
           // Check if student has enough credits to register
-          axios.get(`/students/${studentId}`)
-          .then(result => {
-            if (result.data[0].credits >= credit_cost) {
-              // Axios request x4 (decrease credits register student for class, get class start-time, and set email reminder to be sent 24 hours before class start-time)
-              axios.put(`/students/${studentId}`, null, { params: {
+          const result = await axios.get(`/students/${studentId}`);
+
+          if (result.data[0].credits >= credit_cost) {
+            // Axios request x4 (decrease credits register student for class, get class start-time, and set email reminder to be sent 24 hours before class start-time)
+            await axios.put(`/students/${studentId}`, null, { params: {
                 credits: result.data[0].credits - credit_cost
-              }})
-              .then(() => {
-                axios.post(`/classes/${class_id}/register`, null, { params: {
+            }});
+            await axios.post(`/classes/${class_id}/register`, null, { params: {
                   student_id: studentId
-                }})
-                .then(() => {
-                  axios.get(`/classes/${class_id}`)
-                  .then(classResult => {
-                    const dateStr = classResult.data[0].start_datetime;
-                    const tempDate = dateStr.split(/[-T.]+/);
-                    const month = tempDate[1];
-                    const day = tempDate[2];
-                    const hours = tempDate[3].slice(0, 2);
-                    const minutes = tempDate[3].slice(3, 5);
-                    console.log(month, day, hours, minutes);
-                    axios.get(`students/send/${result.data[0].email}/reminder/${month}/${day}/${hours}/${minutes}`)
-                    .then(() => {
-                      props.setClassId(class_id);
-                      navigate('/schedule/success');
-                    })
-                  })
-                })
-              })
-            } else {
-              navigate('/purchase');
-            }
-          })
-          .catch(e => {});
+            }});
+            // const classResult = await axios.get(`/classes/${class_id}`);
+
+            // const dateStr = classResult.data[0].start_datetime;
+            // const tempDate = dateStr.split(/[-T.]+/);
+            // const month = tempDate[1];
+            // const day = tempDate[2];
+            // const hours = tempDate[3].slice(0, 2);
+            // const minutes = tempDate[3].slice(3, 5);
+            
+            // await axios.get(`students/send/${result.data[0].email}/reminder/${month}/${day}/${hours}/${minutes}`);
+            
+            props.setClassId(class_id);
+            navigate('/schedule/success');
+          } else {
+            navigate('/purchase');
+          }
         }
       } else {
         if (window.confirm("You must login first to register for a class.")) {
@@ -68,18 +60,18 @@ export default function ViewSchedule(props) {
       }
     };
 
-    const getClassList = (idArr) => {
-      axios.get(`/classes/type/${props.classTypeObj.class_type_id}`)
-        .then(result => setClassLists(result.data.map((element, index) => (
-          <li key={index} className="bubble">
-            <h2>{element.name} -- {idArr.includes(element.class_id) ? "Already registered!" : `${element.spots_remaining} spots left!`}</h2>
-            <h3>Day: {formatDate(element.start_datetime)}</h3>
-            <h3>Time: {formatTime(element.start_datetime)} - {formatTime(element.end_datetime)}</h3>
-            <h4>{element.description}</h4>
-            <button disabled={idArr.includes(element.class_id)} onClick={() => handleRegister(element.class_id, element.credit_cost)}>Register</button>
-            <h3 className="credits">Credits to Register: {element.credit_cost}</h3>
-          </li>))))
-        .catch(e => console.log(e));
+    const getClassList = async (idArr) => {
+      const result = await axios.get(`/classes/type/${props.classTypeObj.class_type_id}`);
+
+      setClassLists(result.data.map((element, index) => (
+        <li key={index} className="bubble">
+          <h2>{element.name} -- {idArr.includes(element.class_id) ? "Already registered!" : `${element.spots_remaining} spots left!`}</h2>
+          <h3>Day: {formatDate(element.start_datetime)}</h3>
+          <h3>Time: {formatTime(element.start_datetime)} - {formatTime(element.end_datetime)}</h3>
+          <h4>{element.description}</h4>
+          <button disabled={idArr.includes(element.class_id)} onClick={() => handleRegister(element.class_id, element.credit_cost)}>Register</button>
+          <h3 className="credits">Credits to Register: {element.credit_cost}</h3>
+        </li>)));
     };
 
     if (props.cookies.get('loggedIn')) {
