@@ -15,7 +15,7 @@ import Purchase from './components/Purchase';
 
 const App = () => {
   const [admin, setAdmin] = useState(false);
-  const [classTypeId, setClassTypeId] = useState(null);
+  const [classTypeObj, setClassTypeObj] = useState({});
   const cookies = new Cookies();
 
   const setCookieValue = (val) => {
@@ -31,8 +31,8 @@ const App = () => {
       <Router>
       <NavBar loggedInId={cookies.get('loggedIn')} logout={logout} />
         <Routes>
-          <Route path='/' element={<Home setClassTypeId={setClassTypeId}/>}/>
-          <Route path='/schedule/*' element={<Schedule classTypeId={classTypeId} cookies={cookies}/>}/>
+          <Route path='/' element={<Home setClassTypeObj={setClassTypeObj}/>}/>
+          <Route path='/schedule/*' element={<Schedule classTypeObj={classTypeObj} cookies={cookies}/>}/>
           <Route path='/account' element={cookies.get('loggedIn') ? <Account/> : <Navigate to='/login' replace={true}/>}/>
           <Route path='/admin/*' element={admin ? <Admin/> : <AdminLogin admin={admin} setAdmin={setAdmin}/>}/>
           <Route path='/login/*' element={<Login setCookieValue={setCookieValue}/>}/>
